@@ -1,1 +1,3 @@
-obj
+blazor-pages/obj
+*.csproj.user
+*/.vs
