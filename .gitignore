@@ -1,3 +1,4 @@
 blazor-pages/obj
+blazor-pages/bin
 *.csproj.user
 */.vs
