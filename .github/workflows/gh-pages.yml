@@ -26,7 +26,7 @@ jobs:
     - name: test paths
       run: ls -R
     - name: Publish with dotnet
-      run: dotnet publish blazor-pages/adventofcode.csproj --configuration Release --output build
+      run: dotnet publish BlazorPages/BlazorPages.csproj --configuration Release --output build
     - name: Deploy to Github Pages
       uses: JamesIves/github-pages-deploy-action@releases/v3
       with:
