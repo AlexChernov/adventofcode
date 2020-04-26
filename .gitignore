@@ -1,4 +1,4 @@
-blazor-pages/obj
-blazor-pages/bin
+**/obj
+**/bin
 *.csproj.user
-*/.vs
+.vs

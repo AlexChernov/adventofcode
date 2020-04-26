@@ -1,0 +1,27 @@
+﻿@namespace AdventOfCode
+@page "/task2016_19"
+
+<h1>2016 Day 19: An Elephant Named Joseph </h1>
+
+<button class="btn btn-primary" @onclick="Run1">Run task 1</button>
+<button class="btn btn-primary" @onclick="Run2">Run task 2</button>
+<p>@result</p>
+<div class="form-group">
+    <label for="exampleFormControlTextarea1">input</label>
+    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" @bind="input"></textarea>
+</div>
+
+@code {
+    private string result = "";
+    private string input = "";
+
+    private void Run1()
+    {
+        result = @AdventOfCode.Solutions.Task2016_19.Task2016_19.Run1(input);
+    }
+
+    private void Run2()
+    {
+        result = @AdventOfCode.Solutions.Task2016_19.Task2016_19.Run2(input);
+    }
+}
