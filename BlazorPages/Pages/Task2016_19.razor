@@ -6,15 +6,23 @@
 
 <button class="btn btn-primary" @onclick="Run1">Run task 1</button>
 <button class="btn btn-primary" @onclick="Run2">Run task 2</button>
+<button class="btn btn-secondary" @onclick="Toggle">@inputToggleText</button>
+
 <p>@result</p>
-<div class="form-group">
-    <label for="exampleFormControlTextarea1">input</label>
-    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" @bind="input"></textarea>
-</div>
+
+<BSCollapse IsOpen="@IsOpen">
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">input</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" @bind="input"></textarea>
+    </div>
+</BSCollapse>
+
 
 @code {
     private string result = "";
     private string input = "";
+    private string inputToggleText = "Change input";
+    private bool IsOpen = false;
 
     private void Run1()
     {
@@ -24,5 +32,12 @@
     private void Run2()
     {
         result = @AdventOfCode.Solutions.Task2016_19.Task2016_19.Run2(input);
+    }
+
+    private void Toggle()
+    {
+        inputToggleText = IsOpen ? "Change input" : "Hide input";
+        IsOpen = !IsOpen;
+        StateHasChanged();
     }
 }
