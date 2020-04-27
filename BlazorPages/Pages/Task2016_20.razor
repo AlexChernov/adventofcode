@@ -1,0 +1,35 @@
+﻿@namespace AdventOfCode
+@page "/task2016_20"
+
+<h1>2016 Day 20: Firewall Rules</h1>
+
+<button class="btn btn-primary" @onclick="Run1">Run task 1</button>
+<button class="btn btn-primary" @onclick="Run2">Run task 2</button>
+<button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    Button with data-target
+</button>
+
+<p>@result</p>
+
+<div class="collapse" id="collapseExample">
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">input</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" @bind="input"></textarea>
+    </div>
+</div>
+
+
+@code {
+    private string result = "";
+    private string input = "";
+
+    private void Run1()
+    {
+        result = @AdventOfCode.Solutions.Task2016_20.Task2016_20.Run1(input);
+    }
+
+    private void Run2()
+    {
+        result = @AdventOfCode.Solutions.Task2016_20.Task2016_20.Run2(input);
+    }
+}
