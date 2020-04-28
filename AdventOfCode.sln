@@ -4,14 +4,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.30011.22
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorPages", "BlazorPages\BlazorPages.csproj", "{B12C1483-0CB0-4B6A-847E-D0239380ED65}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C88FC303-9DD5-4022-A98D-8E6203C0C25A} = {C88FC303-9DD5-4022-A98D-8E6203C0C25A}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions", "Solutions", "{461E9586-87A8-47BE-9E69-1AAE0A6D5B01}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2016_19", "solutions\Task2016_19\Task2016_19.csproj", "{1A93C726-36CE-46B7-8F2D-5F5477DB8720}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2019_20", "solutions\Task2019_20\Task2019_20.csproj", "{A9BC6414-E54A-40D0-9C62-5C567BEB2E37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2016_20", "solutions\Task2019_20\Task2016_20.csproj", "{A9BC6414-E54A-40D0-9C62-5C567BEB2E37}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleRunner", "ConsoleRunner\ConsoleRunner.csproj", "{77AF3FDB-5C64-4E96-84EF-17833F873974}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2016_21", "solutions\Task2016_21\Task2016_21.csproj", "{C88FC303-9DD5-4022-A98D-8E6203C0C25A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +40,10 @@ Global
 		{77AF3FDB-5C64-4E96-84EF-17833F873974}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{77AF3FDB-5C64-4E96-84EF-17833F873974}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{77AF3FDB-5C64-4E96-84EF-17833F873974}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C88FC303-9DD5-4022-A98D-8E6203C0C25A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C88FC303-9DD5-4022-A98D-8E6203C0C25A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C88FC303-9DD5-4022-A98D-8E6203C0C25A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C88FC303-9DD5-4022-A98D-8E6203C0C25A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -42,6 +51,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{1A93C726-36CE-46B7-8F2D-5F5477DB8720} = {461E9586-87A8-47BE-9E69-1AAE0A6D5B01}
 		{A9BC6414-E54A-40D0-9C62-5C567BEB2E37} = {461E9586-87A8-47BE-9E69-1AAE0A6D5B01}
+		{C88FC303-9DD5-4022-A98D-8E6203C0C25A} = {461E9586-87A8-47BE-9E69-1AAE0A6D5B01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B013F013-F88E-4A01-BC47-F5B407963ECB}

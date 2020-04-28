@@ -1,6 +1,6 @@
 ﻿@namespace AdventOfCode.Shared
 @inherits LayoutComponentBase
-@inject IBootstrapCSS BootstrapCSS
+@inject IBootstrapCss BootstrapCss
 
 <div class="sidebar">
     <NavMenu />
@@ -20,6 +20,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await BootstrapCSS.SetBootstrapCSS("4.3.1");
+        await BootstrapCss.SetBootstrapCss("4.3.1");
     }
 }
