@@ -1,0 +1,42 @@
+﻿@namespace AdventOfCode
+@page "/task2016_21"
+
+<h1>2016 Day 21: Scrambled Letters and Hash</h1>
+
+<button class="btn btn-primary" @onclick="Run1">Run task 1</button>
+<button class="btn btn-primary" @onclick="Run2">Run task 2</button>
+<button class="btn btn-secondary" @onclick="Toggle">@inputToggleText</button>
+
+<p>@result</p>
+
+<BSCollapse IsOpen="@IsOpen">
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">input</label>
+        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" @bind="input"></textarea>
+    </div>
+</BSCollapse>
+
+
+@code {
+    private string result = "";
+    private string input = "";
+    private string inputToggleText = "Change input";
+    private bool IsOpen = false;
+
+    private void Run1()
+    {
+        result = @AdventOfCode.Solutions.Task2016_21.Task2016_21.Run1(input);
+    }
+
+    private void Run2()
+    {
+        result = @AdventOfCode.Solutions.Task2016_20.Task2016_20.Run2(input);
+    }
+
+    void Toggle()
+    {
+        inputToggleText = IsOpen ? "Change input" : "Hide input";
+        IsOpen = !IsOpen;
+        StateHasChanged();
+    }
+}
