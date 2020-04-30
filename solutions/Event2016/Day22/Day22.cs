@@ -2,20 +2,12 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
-using AdventOfCode.Solutions.Utils;
-using System.Threading;
+using AdventOfCode.Solutions.Common;
 
-namespace AdventOfCode.Solutions.Event2016
+namespace AdventOfCode.Solutions.Event2016.Day22
 {
-    public class Day22
+    public partial class Day22
     {
-
-        public class Node
-        {
-            public int Used;
-            public int Available;
-        }
-
         public static string Run1(string input)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);

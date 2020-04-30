@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdventOfCode.Solutions.Utils
+namespace AdventOfCode.Solutions.Common
 {
     public class X_Y
     {

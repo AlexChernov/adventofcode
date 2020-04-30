@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Solutions.Utils
+namespace AdventOfCode.Solutions.Common
 {
     public class HashSetOrderedBy<T, TS> : ICollection<T>, IEnumerable<T>, IEnumerable, IReadOnlyCollection<T>, ISet<T>
     {

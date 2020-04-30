@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>AdventOfCode.Solutions.Utils</RootNamespace>
-    <AssemblyName>AdventOfCode.Solutions.Utils</AssemblyName>
+    <RootNamespace>AdventOfCode.Solutions.Common</RootNamespace>
+    <AssemblyName>AdventOfCode.Solutions.Common</AssemblyName>
   </PropertyGroup>
 
 </Project>
