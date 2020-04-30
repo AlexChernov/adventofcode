@@ -27,7 +27,7 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                 {
                     continue;
                 }
-                var index = IndexOfFirstGreaterValue(listOfAvailabe, node.Used);
+                var index = Utils.IndexOfFirstGreaterValue(listOfAvailabe, node.Used);
 
                 if (index < 0)
                 {
@@ -118,25 +118,6 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                     Path = path,
                 };
             }
-        }
-
-        private static GraphNode ValueWithMinG(HashSet<GraphNode> open)
-        {
-            GraphNode ret = open.First();
-
-            foreach (var node in open)
-            {
-                if (node.G == ret.G && node.H > ret.H)
-                {
-                    ret = node;
-                }
-                if (node.G < ret.G)
-                {
-                    ret = node;
-                }
-            }
-
-            return ret;
         }
 
         private static IEnumerable<GraphNode> GenerateChildren(GraphNode state, HashSet<GraphNode> close, ISet<GraphNode> open, Node[,] nodes, int maxAvail, X_Y endTargetNodePos)
@@ -250,11 +231,10 @@ namespace AdventOfCode.Solutions.Event2016.Day22
             {
                 if (distanceTarget < distanceEmpty)
                 {
-                    //far 
-
+                    // far 
                     return 5 * distanceTarget;
                 }
-                //near
+                // near
                 return 1 + 5 * (distanceTarget - 1);
             }
         }
@@ -296,32 +276,6 @@ namespace AdventOfCode.Solutions.Event2016.Day22
             return list;
         }
 
-        private static int IndexOfFirstGreaterValue(List<int> arr, int target)
-        {
-            int start = 0, end = arr.Count - 1;
-
-            int ans = -1;
-            while (start <= end)
-            {
-                int mid = (start + end) / 2;
-
-                // Move to right side if target is 
-                // greater. 
-                if (arr[mid] < target)
-                {
-                    start = mid + 1;
-                }
-
-                // Move left side. 
-                else
-                {
-                    ans = mid;
-                    end = mid - 1;
-                }
-            }
-            return ans;
-        }
-
         private static Node[,] InitNodes(string[] lines)
         {
             Node[,] nodes;
@@ -354,54 +308,6 @@ namespace AdventOfCode.Solutions.Event2016.Day22
             }
 
             return nodes;
-        }
-
-        public class GraphNode
-        {
-            public X_Y TargetNodePos;
-            public X_Y EmptyNodePos;
-            public int G
-            {
-                get
-                {
-                    return F + H;
-                }
-                private set { }
-            }
-            public int H;
-            internal int F;
-            public GraphNode Parent = null;
-
-            public override bool Equals(object obj)
-            {
-                return obj is GraphNode other &&
-                    this.TargetNodePos.Equals(other.TargetNodePos) &&
-                    this.EmptyNodePos.Equals(other.EmptyNodePos);
-            }
-
-            public override int GetHashCode()
-            {
-                int hashCode = 151352842;
-                hashCode = hashCode * -1521134295 + TargetNodePos.GetHashCode();
-                hashCode = hashCode * -1521134295 + EmptyNodePos.GetHashCode();
-                return hashCode;
-            }
-
-            public override string ToString()
-            {
-                return TargetNodePos.ToString() + "-" + EmptyNodePos.ToString();
-            }
-        }
-
-        public class State
-        {
-            public Node[,] Nodes;
-            public int MaxAvail;
-            public ISet<GraphNode> Open;
-            public HashSet<GraphNode> Close;
-            public GraphNode LastClosed;
-            public GraphNode Path;
-            public int I;
         }
     }
 }
