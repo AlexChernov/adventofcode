@@ -1,0 +1,62 @@
+﻿@namespace AdventOfCode
+@page "/task2016_22"
+
+<h1>2016 Day 22: Grid Computing</h1>
+
+<button class="btn btn-primary" @onclick="Run1">Run task 1</button>
+<button class="btn btn-primary" @onclick="Run2">Run task 2</button>
+<button class="btn btn-secondary" @onclick="Toggle">@inputToggleText</button>
+
+
+<BSCollapse IsOpen="@OutputIsOpen">
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">Output</label>
+        <textarea class="form-control" id="monospace-textarea" rows="3" @bind="result"></textarea>
+    </div>
+</BSCollapse>
+
+<BSCollapse IsOpen="@InputIsOpen">
+    <div class="form-group">
+        <label for="exampleFormControlTextarea1">input</label>
+        <textarea class="form-control" id="monospace-textarea" rows="3" @bind="input"></textarea>
+    </div>
+</BSCollapse>
+
+
+@code {
+    private string result { get; set; }
+    private string input = "";
+    private string inputToggleText = "Change input";
+    private bool InputIsOpen = false;
+    private bool OutputIsOpen = true;
+
+    private void Run1()
+    {
+        var runner = new @AdventOfCode.Solutions.Event2016.Day22.Day22();
+        foreach (var state in runner.Run1(input, true))
+        {
+            result = state;
+            StateHasChanged();
+        }
+    }
+
+    private async Task Run2()
+    {
+        var runner = new @AdventOfCode.Solutions.Event2016.Day22.Day22();
+        foreach (var state in runner.Run2(input, true))
+        {
+            result = state;
+            StateHasChanged();
+            await Task.Delay(50);
+        }
+    }
+
+    void Toggle()
+    {
+        result = "";
+        inputToggleText = InputIsOpen ? "Change input" : "Hide input";
+        OutputIsOpen = InputIsOpen;
+        InputIsOpen = !InputIsOpen;
+        StateHasChanged();
+    }
+}
