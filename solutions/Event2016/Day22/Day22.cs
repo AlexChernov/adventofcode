@@ -6,16 +6,22 @@ using AdventOfCode.Solutions.Common;
 
 namespace AdventOfCode.Solutions.Event2016.Day22
 {
-    public partial class Day22
+    public partial class Day22 : IAdventOfCodeDay
     {
-        public static string Run1(string input)
+        public bool HaveVisualization()
+        {
+            return true;
+        }
+
+        public IEnumerable<string> Run1(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             var nodes = InitNodes(lines);
 
             if (nodes == null)
             {
-                return "Wrong input!";
+                yield return "Wrong input!";
+                yield break;
             }
 
             var listOfAvailabe = GetAvailable(nodes);
@@ -42,206 +48,64 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                 result += count;
             }
 
-
-            return result.ToString();
+            yield return "There are " + result.ToString() + " viable pairs of nodes.";
         }
 
-        public static IEnumerable<State> Run2(string input)
+        public IEnumerable<string> Run2(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             var nodes = InitNodes(lines);
 
             if (nodes == null)
             {
-                return null;
+                yield return "Wrong input!";
+                yield break;
             }
+
             var posOfEmptyNode = GetEmptyNode(nodes);
-
-            return FindPath(nodes, posOfEmptyNode);
-        }
-
-        private static IEnumerable<State> FindPath(Node[,] nodes, X_Y emptyNodePos)
-        {
-            var targetNodePos = new X_Y { X = nodes.GetLength(0) - 1, Y = 0 };
-            var maxAvail = nodes[emptyNodePos.X, emptyNodePos.Y].Available;
-            var initState = new GraphNode
+            GraphNode pathNode = null;
+            var calcMap = shouldVisualise ? InitMap(nodes, posOfEmptyNode) : null;
+            var spinner = new Spinner();
+            foreach (var state in FindPath(nodes, posOfEmptyNode))
             {
-                TargetNodePos = targetNodePos,
-                EmptyNodePos = emptyNodePos,
-                H = 0,
-                F = 0,
-            };
-            var endTargetNodePos = new X_Y { X = 0, Y = 0 };
-
-            var open = new HashSetOrderedBy<GraphNode, int>((state) => state.G);
-            //var open = new HashSet<GraphNode>();
-            var close = new HashSet<GraphNode>();
-            open.Add(initState);
-            var count = 0;
-            GraphNode path = null;
-
-            while (open.Any() && path == null)
-            {
-                count++;
-                var state = open.ValueWithMinSelector();
-
-                var children = GenerateChildren(state, close, open, nodes, maxAvail, endTargetNodePos);
-
-                foreach (var child in children)
-                {
-                    GraphNode existingNode;
-                    if (open.TryGetValue(child, out existingNode) || close.TryGetValue(child, out existingNode))
-                    {
-                        if (existingNode.H <= child.H)
-                        {
-                            continue;
-                        }
-                        open.Remove(existingNode);
-                    }
-                    open.Add(child);
-                    if (child.TargetNodePos.Equals(endTargetNodePos))
-                    {
-                        path = child;
-                        break;
-                    }
-                }
-                open.Remove(state);
-                close.Add(state);
-                yield return new State
-                {
-                    Close = close,
-                    Open = open,
-                    MaxAvail = maxAvail,
-                    Nodes = nodes,
-                    LastClosed = state,
-                    I = count,
-                    Path = path,
-                };
-            }
-        }
-
-        private static IEnumerable<GraphNode> GenerateChildren(GraphNode state, HashSet<GraphNode> close, ISet<GraphNode> open, Node[,] nodes, int maxAvail, X_Y endTargetNodePos)
-        {
-            var children = new X_Y[]
-            {
-                new X_Y() { X = state.EmptyNodePos.X - 1, Y = state.EmptyNodePos.Y},
-                new X_Y() { X = state.EmptyNodePos.X + 1, Y = state.EmptyNodePos.Y},
-                new X_Y() { X = state.EmptyNodePos.X, Y = state.EmptyNodePos.Y+1},
-                new X_Y() { X = state.EmptyNodePos.X, Y = state.EmptyNodePos.Y-1},
-            };
-
-            foreach (var childPos in children)
-            {
-                if (!(InBound(childPos, nodes) && CanMove(childPos, nodes, maxAvail)))
+                pathNode = state.Path;
+                if (!shouldVisualise)
                 {
                     continue;
                 }
 
-                var targetPos = state.TargetNodePos.Equals(childPos) ? new X_Y() { X = state.EmptyNodePos.X, Y = state.EmptyNodePos.Y } : new X_Y() { X = state.TargetNodePos.X, Y = state.TargetNodePos.Y };
+                UpdateCalcMap(calcMap, state);
+                spinner.Turn();
+                var titleCalc = "Calculating path... " + spinner.State;
 
-                var child = new GraphNode
-                {
-                    EmptyNodePos = childPos,
-                    TargetNodePos = targetPos,
-                    F = CalcF(targetPos, childPos, endTargetNodePos),
-                    H = state.H + 1,
-                    Parent = state,
-                };
-
-                yield return child;
-            }
-        }
-
-        private static bool CanMove(X_Y childPos, Node[,] nodes, int maxAvail)
-        {
-            return nodes[childPos.X, childPos.Y].Used <= maxAvail;
-        }
-
-        public static int CalcF(X_Y targetPos, X_Y emptyPos, X_Y endTargetNodePos)
-        {
-            var adjustedTargets = new X_Y[]
-            {
-                new X_Y() { X = targetPos.X - 1, Y = targetPos.Y},
-                new X_Y() { X = targetPos.X + 1, Y = targetPos.Y},
-                new X_Y() { X = targetPos.X,     Y = targetPos.Y+1},
-                new X_Y() { X = targetPos.X,     Y = targetPos.Y-1},
-            };
-
-            var fs = adjustedTargets.Select(t =>
-            {
-                var distanceTargetY = Math.Abs(targetPos.Y - endTargetNodePos.Y);
-                var distanceEmptyY = Math.Abs(t.Y - endTargetNodePos.Y);
-
-                var distanceTargetX = Math.Abs(targetPos.X - endTargetNodePos.X);
-                var distanceEmptyX = Math.Abs(t.X - endTargetNodePos.X);
-
-                var f = CalcFAdjusted(distanceTargetX, distanceTargetY, distanceEmptyX, distanceEmptyY);
-
-                return new { h = emptyPos.CalcManhattanDistance(t), f };
-            })
-                .OrderBy(x => x.h)
-                .ThenBy(x => x.f);
-            var target = fs.First();
-
-            return target.h + target.f;
-        }
-
-        private static int CalcFAdjusted(int distanceTargetX, int distanceTargetY, int distanceEmptyX, int distanceEmptyY)
-        {
-            if (distanceTargetX == 0 && distanceTargetY == 0)
-            {
-                return 0;
+                yield return PrintPathFindingState(calcMap, state.LastClosed, titleCalc);
             }
 
-            if (distanceTargetX == 0)
-            {
-                return CalcFAdjustedLine(distanceTargetY, distanceEmptyY);
-            }
-            if (distanceTargetY == 0)
-            {
-                return CalcFAdjustedLine(distanceTargetX, distanceEmptyX);
-            }
+            var title = pathNode.H.ToString() + " is the fewest number of steps required to move your goal data to target node.";
 
-            var near = distanceEmptyX + distanceEmptyY < distanceTargetX + distanceTargetY;
-            var diag = Math.Min(distanceTargetY, distanceTargetX);
-            var count = 4;
-            count += 6 * (diag - 1);
-            count += near ? 0 : 2;
-
-            if (distanceTargetY == distanceTargetX)
+            if (!shouldVisualise)
             {
-                return count;
+                yield return title;
+                yield break;
             }
 
-            if (diag == distanceTargetX)
+            var path = new LinkedList<Day22.GraphNode>();
+            while (pathNode != null)
             {
-                return count + 2 + CalcFAdjustedLine(distanceTargetY - diag, Math.Abs(distanceEmptyY - diag));
+                path.AddFirst(pathNode);
+                pathNode = pathNode.Parent;
             }
 
-            return count + 2 + CalcFAdjustedLine(distanceTargetX - diag, Math.Abs(distanceEmptyX - diag));
-        }
-
-        private static int CalcFAdjustedLine(int distanceTarget, int distanceEmpty)
-        {
-            if (distanceTarget == distanceEmpty)
+            var pathMap = InitPathMap(calcMap);
+            var step = 0;
+            foreach (var node in path)
             {
-                return 3 + 5 * (distanceTarget - 1);
-            }
-            else
-            {
-                if (distanceTarget < distanceEmpty)
-                {
-                    // far 
-                    return 5 * distanceTarget;
-                }
-                // near
-                return 1 + 5 * (distanceTarget - 1);
-            }
-        }
+                pathMap[node.TargetNodePos.X, node.TargetNodePos.Y] = "GGGG";
+                pathMap[node.EmptyNodePos.X, node.EmptyNodePos.Y] = "_" + step.ToString().PadLeft(3, '_');
 
-        private static bool InBound(X_Y xy, Node[,] nodes)
-        {
-            return xy.X >= 0 && xy.X < nodes.GetLength(0) && xy.Y >= 0 && xy.Y < nodes.GetLength(1);
+                yield return PrintState(pathMap, node.EmptyNodePos, title);
+                ++step;
+            }
         }
 
         private static X_Y GetEmptyNode(Node[,] nodes)
@@ -268,11 +132,14 @@ namespace AdventOfCode.Solutions.Event2016.Day22
         private static List<int> GetAvailable(Node[,] arr)
         {
             var list = new List<int>(arr.Length);
+
             foreach (var node in arr)
             {
                 list.Add(node.Available);
             }
+
             list.Sort();
+
             return list;
         }
 
