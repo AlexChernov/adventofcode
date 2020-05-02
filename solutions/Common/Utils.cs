@@ -1,8 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Net.Http.Headers;
 
 namespace AdventOfCode.Solutions.Common
 {
-    public class Utils
+    public static class Utils
     {
         public static int IndexOfFirstGreaterValue(IList<int> arr, int target)
         {
@@ -29,6 +31,27 @@ namespace AdventOfCode.Solutions.Common
             }
 
             return ans;
+        }
+
+        public static T[] SubArray<T>(this T[] data, int index, int length)
+        {
+            T[] result = new T[length];
+            Array.Copy(data, index, result, 0, length);
+
+            return result;
+        }
+
+        public static long Factorial(long n)
+        {
+            long ret = 1;
+
+            while (n > 1)
+            {
+                ret *= n;
+                n--;
+            }
+
+            return ret;
         }
     }
 }
