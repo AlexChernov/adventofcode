@@ -41,6 +41,16 @@ namespace AdventOfCode.Solutions.Common
             return result;
         }
 
+        public static bool InBound<T>(this T[,] nodes, X_Y xy)
+        {
+            return xy.X >= 0 && xy.X < nodes.GetLength(0) && xy.Y >= 0 && xy.Y < nodes.GetLength(1);
+        }
+
+        public static bool InBound<T>(this T[,] nodes, int x, int y)
+        {
+            return x >= 0 && x < nodes.GetLength(0) && y >= 0 && y < nodes.GetLength(1);
+        }
+
         public static long Factorial(long n)
         {
             long ret = 1;

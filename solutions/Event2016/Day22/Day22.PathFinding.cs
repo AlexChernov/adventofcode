@@ -74,7 +74,7 @@ namespace AdventOfCode.Solutions.Event2016.Day22
 
             foreach (var childPos in children)
             {
-                if (!(InBound(childPos, nodes) && CanMove(childPos, nodes, maxAvail)))
+                if (!(nodes.InBound(childPos) && CanMove(childPos, nodes, maxAvail)))
                 {
                     continue;
                 }
