@@ -8,10 +8,7 @@ namespace AdventOfCode.Solutions.Event2016.Day21
 {
     public class Day21 : IAdventOfCodeDayRunner
     {
-        public bool HaveVisualization()
-        {
-            return false;
-        }
+        public bool HaveVisualization() => false;
 
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {

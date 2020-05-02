@@ -6,10 +6,7 @@ namespace AdventOfCode.Solutions.Event2016.Day19
 {
     public class Day19 : IAdventOfCodeDayRunner
     {
-        public bool HaveVisualization()
-        {
-            return false;
-        }
+        public bool HaveVisualization() => false;
 
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
