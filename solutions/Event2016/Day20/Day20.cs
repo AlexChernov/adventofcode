@@ -1,11 +1,18 @@
-﻿using System;
+﻿using AdventOfCode.Solutions.Common;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 
-namespace AdventOfCode.Solutions.Task2016_20
+namespace AdventOfCode.Solutions.Event2016.Day20
 {
-    public class Task2016_20
+    public class Day20 : IAdventOfCodeDayRunner
     {
-        public static string Run1(string input)
+        public bool HaveVisualization()
+        {
+            return false;
+        }
+
+        public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -51,10 +58,10 @@ namespace AdventOfCode.Solutions.Task2016_20
                 min = range.Item2 + 1;
             }
 
-            return min.ToString() + " is minimum allowerd IP.";
+            yield return min.ToString() + " is minimum allowerd IP.";
         }
 
-        public static string Run2(string input)
+        public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
@@ -104,7 +111,8 @@ namespace AdventOfCode.Solutions.Task2016_20
                 }
             }
             count += 4294967295 - lastValid + 1;
-            return count.ToString() + " are allowed by the blacklist.";
+
+            yield return count.ToString() + " are allowed by the blacklist.";
         }
 
         private static bool ValuesValid(string left, string right, out long leftValue, out long rightValue)

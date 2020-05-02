@@ -1,28 +1,39 @@
-﻿using System;
+﻿using AdventOfCode.Solutions.Common;
+using System;
+using System.Collections.Generic;
 
-namespace AdventOfCode.Solutions.Event2016.Task2016_19
+namespace AdventOfCode.Solutions.Event2016.Day19
 {
-    public class Task2016_19
+    public class Day19 : IAdventOfCodeDayRunner
     {
-        public static string Run1(string input)
+        public bool HaveVisualization()
+        {
+            return false;
+        }
+
+        public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             if (!Int32.TryParse(input, out var inputInt))
             {
-                return "Wrong input!";
+                yield return "Wrong input!";
+                yield break;
             }
+
             var fullLaps = Math.Floor(Math.Log(inputInt, 2));
             var nextFullLapsCount = (int)Math.Pow(2, fullLaps + 1) - 1;
             var winner = nextFullLapsCount - (nextFullLapsCount - inputInt) * 2;
 
-            return winner.ToString() + " Elf gets all the presents";
+            yield return winner.ToString() + " Elf gets all the presents";
         }
 
-        public static string Run2(string input)
+        public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
             if (!Int32.TryParse(input, out var inputInt))
             {
-                return "Wrong input!";
+                yield return "Wrong input!";
+                yield break;
             }
+
             var fullLaps = Math.Floor(Math.Log(inputInt - 1, 3));
 
             var lowerBound = (int)Math.Pow(3, fullLaps);
@@ -37,7 +48,7 @@ namespace AdventOfCode.Solutions.Event2016.Task2016_19
                 winner = midBound + (inputInt - midBound) * 2;
             }
 
-            return winner.ToString() + " Elf gets all the presents";
+            yield return winner.ToString() + " Elf gets all the presents";
         }
     }
 }

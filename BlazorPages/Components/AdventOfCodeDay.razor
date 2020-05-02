@@ -1,0 +1,77 @@
+﻿@namespace AdventOfCode
+
+<h1>@Title</h1>
+
+<div class="input-group mb-3">
+    <button class="btn btn-primary" @onclick="Run1">Run task 1</button>
+    <button class="btn btn-primary" @onclick="Run2">Run task 2</button>
+    <button class="btn btn-secondary" @onclick="Toggle">@inputToggleText</button>
+</div>
+
+<div class="input-group mb-3">
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="exampleCheck1" @bind="@shouldVisualize">
+        <label class="form-check-label" for="exampleCheck1">Visualization</label>
+    </div>
+</div>
+
+<div class="input-group mb-3">
+    <BSCollapse IsOpen="@OutputIsOpen">
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Output</label>
+            <textarea class="form-control" id="monospace-textarea" rows="3" @bind="result"></textarea>
+        </div>
+    </BSCollapse>
+
+    <BSCollapse IsOpen="@InputIsOpen">
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Input</label>
+            <textarea class="form-control" id="monospace-textarea" rows="3" @bind="input"></textarea>
+        </div>
+    </BSCollapse>
+</div>
+
+
+@code {
+    [Parameter]
+    public string Title { get; set; }
+
+    [Parameter]
+    public AdventOfCode.Solutions.Common.IAdventOfCodeDayRunner AdventOfCodeDayRunner { get; set; }
+
+    private string result { get; set; }
+    private bool shouldVisualize = false;
+    private string input = "";
+    private string inputToggleText = "Change input";
+    private bool InputIsOpen = false;
+    private bool OutputIsOpen = true;
+
+    private async Task Run1()
+    {
+        foreach (var state in AdventOfCodeDayRunner.RunTask1(input, shouldVisualize))
+        {
+            result = state;
+            StateHasChanged();
+            await Task.Delay(50);
+        }
+    }
+
+    private async Task Run2()
+    {
+        foreach (var state in AdventOfCodeDayRunner.RunTask2(input, shouldVisualize))
+        {
+            result = state;
+            StateHasChanged();
+            await Task.Delay(50);
+        }
+    }
+
+    void Toggle()
+    {
+        result = "";
+        inputToggleText = InputIsOpen ? "Change input" : "Hide input";
+        OutputIsOpen = InputIsOpen;
+        InputIsOpen = !InputIsOpen;
+        StateHasChanged();
+    }
+}

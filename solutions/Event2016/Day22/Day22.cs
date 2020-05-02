@@ -6,14 +6,14 @@ using AdventOfCode.Solutions.Common;
 
 namespace AdventOfCode.Solutions.Event2016.Day22
 {
-    public partial class Day22 : IAdventOfCodeDay
+    public partial class Day22 : IAdventOfCodeDayRunner
     {
         public bool HaveVisualization()
         {
             return true;
         }
 
-        public IEnumerable<string> Run1(string input, bool shouldVisualise)
+        public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             var nodes = InitNodes(lines);
@@ -51,7 +51,7 @@ namespace AdventOfCode.Solutions.Event2016.Day22
             yield return "There are " + result.ToString() + " viable pairs of nodes.";
         }
 
-        public IEnumerable<string> Run2(string input, bool shouldVisualise)
+        public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             var nodes = InitNodes(lines);

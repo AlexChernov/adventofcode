@@ -4,19 +4,19 @@ using AdventOfCode.Solutions.Common;
 
 namespace AdventOfCode.Solutions.Event2016.Day23
 {
-    public class Day23 : IAdventOfCodeDay
+    public class Day23 : IAdventOfCodeDayRunner
     {
         public bool HaveVisualization()
         {
             return false;
         }
 
-        public IEnumerable<string> Run1(string input, bool shouldVisualise)
+        public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             return SimplifiedProgram(input, 7);
         }
 
-        public IEnumerable<string> Run2(string input, bool shouldVisualise)
+        public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
             return SimplifiedProgram(input, 12);
         }

@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Linq;
+using AdventOfCode.Solutions.Common;
 
-namespace AdventOfCode.Solutions.Task2016_21
+namespace AdventOfCode.Solutions.Event2016.Day21
 {
-    public class Task2016_21
+    public class Day21 : IAdventOfCodeDayRunner
     {
-        public class State
+        public bool HaveVisualization()
         {
-            public char[] word;
+            return false;
         }
 
-        public static string Run1(string input)
+        public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             var commands = InitCommands(lines);
@@ -23,10 +24,10 @@ namespace AdventOfCode.Solutions.Task2016_21
                 cmd(state);
             }
 
-            return new string(state.word);
+            yield return new string(state.word);
         }
 
-        public static string Run2(string input)
+        public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             var commands = InitReverseCommands(lines);
@@ -37,7 +38,12 @@ namespace AdventOfCode.Solutions.Task2016_21
                 commands[i](state);
             }
 
-            return new string(state.word);
+            yield return new string(state.word);
+        }
+
+        public class State
+        {
+            public char[] word;
         }
 
         private static IEnumerable<Action<State>> InitCommands(string[] lines)
