@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AdventOfCode.Solutions.Task2016_19
+namespace AdventOfCode.Solutions.Event2016.Task2016_19
 {
     public class Task2016_19
     {

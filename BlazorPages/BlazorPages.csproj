@@ -15,9 +15,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\solutions\Event2016\Event2016.csproj" />
-    <ProjectReference Include="..\solutions\Task2016_19\Task2016_19.csproj" />
-    <ProjectReference Include="..\solutions\Task2019_20\Task2016_20.csproj" />
-    <ProjectReference Include="..\solutions\Task2016_21\Task2016_21.csproj" />
   </ItemGroup>
 
 </Project>
