@@ -6,7 +6,7 @@ namespace AdventOfCode.Solutions.Event2016.Day24
 {
     partial class Day24
     {
-        private class GraphNode
+        public class GraphNode
         {
             internal GraphNode Parent;
             internal char LastLocation;
@@ -33,6 +33,11 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             public override int GetHashCode()
             {
                 return HashCode.Combine(CurrentPos, LocationsToVisit);
+            }
+
+            public override string ToString()
+            {
+                return CurrentPos.ToString() + "_" + LocationsToVisit;
             }
         }
     }

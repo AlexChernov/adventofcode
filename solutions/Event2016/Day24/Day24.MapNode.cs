@@ -2,7 +2,7 @@
 {
     partial class Day24
     {
-        private class MapNode
+        public class MapNode
         {
             public char? location;
             public bool canMove;
