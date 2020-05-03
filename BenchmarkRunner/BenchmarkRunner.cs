@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using AdventOfCode.Solutions.Common;
+﻿using System.Linq;
 using AdventOfCode.Solutions.Event2016.Day24;
 using BenchmarkDotNet.Attributes;
-using BenchmarkDotNet.Running;
 
 namespace BenchmarkRunner
 {
     public class BenchmarkRunner
     {
-        private readonly Dictionary<char, X_Y> locations;
-        private readonly Day24.MapNode[,] map;
-        private string text;
+        private readonly string text;
 
         public BenchmarkRunner()
         {
@@ -31,7 +24,7 @@ namespace BenchmarkRunner
     {
         public static void Main(string[] args)
         {
-            var summary = BenchmarkDotNet.Running.BenchmarkRunner.Run<BenchmarkRunner>();
+            BenchmarkDotNet.Running.BenchmarkRunner.Run<BenchmarkRunner>();
         }
     }
 }

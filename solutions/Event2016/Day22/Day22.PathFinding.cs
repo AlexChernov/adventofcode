@@ -30,12 +30,11 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                 count++;
                 var currentNode = open.ValueWithMinSelector();
 
-                var children = GenerateChildren(currentNode, close, open, nodes, maxAvail, endTargetNodePos);
+                var children = GenerateChildren(currentNode, nodes, maxAvail, endTargetNodePos);
 
                 foreach (var child in children)
                 {
-                    GraphNode existingNode;
-                    if (open.TryGetValue(child, out existingNode) || close.TryGetValue(child, out existingNode))
+                    if (open.TryGetValue(child, out GraphNode existingNode) || close.TryGetValue(child, out existingNode))
                     {
                         if (existingNode.H <= child.H)
                         {
@@ -62,7 +61,7 @@ namespace AdventOfCode.Solutions.Event2016.Day22
             }
         }
 
-        private static IEnumerable<GraphNode> GenerateChildren(GraphNode state, HashSet<GraphNode> close, ISet<GraphNode> open, Node[,] nodes, int maxAvail, X_Y endTargetNodePos)
+        private static IEnumerable<GraphNode> GenerateChildren(GraphNode state, Node[,] nodes, int maxAvail, X_Y endTargetNodePos)
         {
             var children = new X_Y[]
             {
@@ -97,11 +96,6 @@ namespace AdventOfCode.Solutions.Event2016.Day22
         private static bool CanMove(X_Y childPos, Node[,] nodes, int maxAvail)
         {
             return nodes[childPos.X, childPos.Y].Used <= maxAvail;
-        }
-
-        private static bool InBound(X_Y xy, Node[,] nodes)
-        {
-            return xy.X >= 0 && xy.X < nodes.GetLength(0) && xy.Y >= 0 && xy.Y < nodes.GetLength(1);
         }
     }
 }

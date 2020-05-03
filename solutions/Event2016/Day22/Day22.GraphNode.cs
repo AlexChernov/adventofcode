@@ -29,10 +29,7 @@ namespace AdventOfCode.Solutions.Event2016.Day22
 
             public override int GetHashCode()
             {
-                int hashCode = 151352842;
-                hashCode = hashCode * -1521134295 + TargetNodePos.GetHashCode();
-                hashCode = hashCode * -1521134295 + EmptyNodePos.GetHashCode();
-                return hashCode;
+                return System.HashCode.Combine(TargetNodePos, EmptyNodePos);
             }
 
             public override string ToString()

@@ -173,17 +173,17 @@ namespace AdventOfCode.Solutions.Event2016.Day21
                 .ToList();
         }
 
-        private static Dictionary<int, int> DerotateOnLetterMap = new Dictionary<int, int>()
-            {
-                { 1,0},
-                { 3,1},
-                { 5,2},
-                { 7,3},
-                { 2,4},
-                { 4,5},
-                { 6,6},
-                { 0,7},
-            };
+        private static readonly Dictionary<int, int> DerotateOnLetterMap = new Dictionary<int, int>()
+        {
+            { 1,0},
+            { 3,1},
+            { 5,2},
+            { 7,3},
+            { 2,4},
+            { 4,5},
+            { 6,6},
+            { 0,7},
+        };
 
         private static void DerotateOnLetter(State state, char x)
         {

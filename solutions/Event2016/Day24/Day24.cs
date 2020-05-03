@@ -1,7 +1,6 @@
 ﻿using AdventOfCode.Solutions.Common;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 
@@ -13,71 +12,14 @@ namespace AdventOfCode.Solutions.Event2016.Day24
 
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
+
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             InitNodes(lines, out var locations, out var map);
-
-            if (!locations.TryGetValue('0', out var startPos))
+            if (!locations.TryGetValue('0', out _))
             {
                 yield return "Wrong input!";
                 yield break;
             }
-
-            GraphNode pathNode = null;
-            var spinner = new Lazy<Spinner>(() => new Spinner());
-            var calcMap = new Lazy<char[,]>(() => InitPrintMap(map));
-
-            foreach (var state in FindPath(map, locations, startPos))
-            {
-                pathNode = state.Path;
-                if (!shouldVisualise)
-                {
-                    continue;
-                }
-
-                UpdateCalcMap(calcMap.Value, state);
-                spinner.Value.Turn();
-                var titleCalc = "Calculating path... " + spinner.Value.State;
-
-                yield return PrintPathFindingState(calcMap.Value, titleCalc);
-                calcMap.Value[state.LastClosed.CurrentPos.X, state.LastClosed.CurrentPos.Y] = state.LastClosed.LastLocation;
-            }
-
-            var cost = pathNode.H;
-            var pathStr = "";
-            var lastLocation = '!';
-            while (pathNode.Parent != null)
-            {
-                if (pathNode.LastLocation != lastLocation)
-                {
-                    lastLocation = pathNode.LastLocation;
-                    pathStr = pathStr.Insert(0, lastLocation.ToString());
-                }
-                pathNode = pathNode.Parent;
-            }
-
-            var title = cost + " is the fewest number of steps required to move your goal data to target node.";
-
-            if (!shouldVisualise)
-            {
-                yield return title;
-                yield break;
-            }
-
-            yield return title;
-        }
-
-        public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
-        {
-            var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-            InitNodes(lines, out var locations, out var map);
-
-            if (!locations.TryGetValue('0', out var startPos))
-            {
-                yield return "Wrong input!";
-                yield break;
-            }
-
-            GraphNode pathNode = null;
 
             var graph = SimplifyMapBFS(map, locations);
             var path = SolveTSP(graph, locations, '0');
@@ -85,6 +27,11 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             var title = path.H.ToString() + " is the fewest number of steps required to move your goal data to target node.";
 
             yield return title;
+        }
+
+        public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
+        {
+            throw new NotImplementedException();
         }
 
         private GraphNode SolveTSP(Dictionary<char, Dictionary<char, GraphNode>> graph, Dictionary<char, X_Y> locations, char v)
@@ -118,8 +65,7 @@ namespace AdventOfCode.Solutions.Event2016.Day24
 
                 foreach (var child in children)
                 {
-                    GraphNode existingNode;
-                    if (open.TryGetValue(child, out existingNode) || close.TryGetValue(child, out existingNode))
+                    if (open.TryGetValue(child, out GraphNode existingNode) || close.TryGetValue(child, out existingNode))
                     {
                         if (existingNode.H <= child.H)
                         {
@@ -177,12 +123,14 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             {
                 var visited = new bool[map.GetLength(0), map.GetLength(1)];
 
-                var open = new HashSet<GraphNode>();
-                open.Add(new GraphNode
+                var open = new HashSet<GraphNode>
                 {
-                    CurrentPos = locations[location],
-                    LocationsToVisit = "",
-                });
+                    new GraphNode
+                    {
+                        CurrentPos = locations[location],
+                        LocationsToVisit = "",
+                    }
+                };
                 var paths = new Dictionary<char, GraphNode>();
                 while (open.Any())
                 {

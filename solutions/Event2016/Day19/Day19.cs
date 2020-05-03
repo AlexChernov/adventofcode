@@ -35,7 +35,7 @@ namespace AdventOfCode.Solutions.Event2016.Day19
 
             var lowerBound = (int)Math.Pow(3, fullLaps);
             var midBound = 2 * lowerBound;
-            var winner = 0;
+            int winner;
             if (inputInt <= midBound)
             {
                 winner = inputInt - lowerBound;

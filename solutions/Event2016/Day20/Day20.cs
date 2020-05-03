@@ -25,8 +25,8 @@ namespace AdventOfCode.Solutions.Event2016.Day20
 
                     var left = l.Substring(0, separatorIndex);
                     var right = l.Substring(separatorIndex + 1);
-                    long leftValue, rightValue;
-                    if (!ValuesValid(left, right, out leftValue, out rightValue))
+
+                    if (!ValuesValid(left, right, out long leftValue, out long rightValue))
                     {
                         return null;
                     }
@@ -74,8 +74,8 @@ namespace AdventOfCode.Solutions.Event2016.Day20
 
                     var left = l.Substring(0, separatorIndex);
                     var right = l.Substring(separatorIndex + 1);
-                    long leftValue, rightValue;
-                    if (!ValuesValid(left, right, out leftValue, out rightValue))
+
+                    if (!ValuesValid(left, right, out long leftValue, out long rightValue))
                     {
                         return null;
                     }

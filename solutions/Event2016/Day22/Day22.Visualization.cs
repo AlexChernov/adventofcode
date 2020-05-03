@@ -134,8 +134,10 @@ namespace AdventOfCode.Solutions.Event2016.Day22
             {
                 for (int j = 0; j < output.GetLength(1); ++j)
                 {
-                    output[i, j] = new MapNode();
-                    output[i, j].canMove = nodes[i, j].Used <= maxAvail;
+                    output[i, j] = new MapNode
+                    {
+                        canMove = nodes[i, j].Used <= maxAvail
+                    };
                 }
             }
 

@@ -39,7 +39,7 @@ namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
             return state.Registers;
         }
 
-        private static IDictionary<string, Action<State, string[]>> methodsMapping = new Dictionary<string, Action<State, string[]>>()
+        private static readonly IDictionary<string, Action<State, string[]>> methodsMapping = new Dictionary<string, Action<State, string[]>>()
         {
             {
                 "cpy", (state, args) =>
