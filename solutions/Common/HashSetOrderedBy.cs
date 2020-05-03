@@ -7,9 +7,9 @@ namespace AdventOfCode.Solutions.Common
 {
     public class HashSetOrderedBy<T, TS> : ICollection<T>, IEnumerable<T>, IEnumerable, IReadOnlyCollection<T>, ISet<T>
     {
-        private HashSet<T> set;
-        private SortedDictionary<TS, HashSet<T>> sortingMap;
-        private Func<T, TS> KeySelector;
+        private readonly HashSet<T> set;
+        private readonly SortedDictionary<TS, HashSet<T>> sortingMap;
+        private readonly Func<T, TS> KeySelector;
 
         private HashSetOrderedBy() : this(null)
         {
@@ -112,7 +112,6 @@ namespace AdventOfCode.Solutions.Common
 
         public bool TryGetValue(T equalValue, out T actualValue)
         {
-            actualValue = default(T);
             return set.TryGetValue(equalValue, out actualValue);
         }
 
