@@ -14,10 +14,16 @@ namespace BenchmarkRunner
         }
 
         [Benchmark]
-        public object DirectAStar() => new Day24().RunTask1(text, false).First();
+        public object DirectAStar()
+        {
+            return new Day24().RunTask1(text, false).First();
+        }
 
         [Benchmark]
-        public object BFSSImplifyPlusTSP() => new Day24().RunTask2(text, false).First();
+        public object BFSSImplifyPlusTSP()
+        {
+            return new Day24().RunTask2(text, false).First();
+        }
     }
 
     public class Program

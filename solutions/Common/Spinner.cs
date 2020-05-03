@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace AdventOfCode.Solutions.Common
+﻿namespace AdventOfCode.Solutions.Common
 {
     public class Spinner
     {
-        int counter = 0;
+        private int counter = 0;
         public string State { get; private set; }
 
         public void Turn()

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Net;
 using AdventOfCode.Solutions.Common;
 
 namespace AdventOfCode.Solutions.Event2016.PrototypeComputer

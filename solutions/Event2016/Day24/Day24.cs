@@ -6,9 +6,12 @@ using AdventOfCode.Solutions.Common;
 
 namespace AdventOfCode.Solutions.Event2016.Day24
 {
-    partial class Day24 : IAdventOfCodeDayRunner
+    public partial class Day24 : IAdventOfCodeDayRunner
     {
-        public bool HaveVisualization() => true;
+        public bool HaveVisualization()
+        {
+            return true;
+        }
 
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
