@@ -17,6 +17,23 @@
         /// <inheritdoc/>
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
+            foreach (var state in this.PathFinding(input, shouldVisualise, (node, _) => !node.LocationsToVisit.Any()))
+            {
+                yield return state;
+            }
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
+        {
+            foreach (var state in this.PathFinding(input, shouldVisualise, (node, start) => !node.LocationsToVisit.Any() && start.Equals(node)))
+            {
+                yield return state;
+            }
+        }
+
+        private IEnumerable<string> PathFinding(string input, bool shouldVisualise, Func<GraphNode, GraphNode, bool> targetCondition)
+        {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             this.InitNodes(lines, out var locations, out var map);
             if (!locations.TryGetValue('0', out _))
@@ -45,7 +62,7 @@
                 }
             }
 
-            var path = this.SolveTSP(graph, locations, '0');
+            var path = this.SolveTSP(graph, locations, '0', targetCondition);
             var title = path.H.ToString() + " is the fewest number of steps required to move your goal data to target node.";
 
             if (!shouldVisualise)
@@ -82,26 +99,25 @@
             }
         }
 
-        /// <inheritdoc/>
-        public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
-        {
-            throw new NotImplementedException();
-        }
-
-        private GraphNode SolveTSP(Dictionary<char, Dictionary<char, GraphNode>> graph, Dictionary<char, X_Y> locations, char v)
+        private GraphNode SolveTSP(Dictionary<char, Dictionary<char, GraphNode>> graph, Dictionary<char, X_Y> locations, char zeroPoint, Func<GraphNode, GraphNode, bool> targetCondition)
         {
             GraphNode path = null;
 
             var locationsToVisit = new string(locations.Keys.OrderBy(c => c).ToArray());
-            locationsToVisit = this.VisitLocation(locationsToVisit, v);
+            locationsToVisit = this.VisitLocation(locationsToVisit, zeroPoint);
 
             var initState = new GraphNode
             {
-                CurrentPos = locations[v],
+                CurrentPos = locations[zeroPoint],
                 LocationsToVisit = locationsToVisit,
                 LastLocation = '0',
                 H = 0,
                 F = 0,
+            };
+            var returnState = new GraphNode
+            {
+                CurrentPos = locations[zeroPoint],
+                LocationsToVisit = string.Empty,
             };
 
             var open = new HashSetOrderedBy<GraphNode, int>((state) => state.G);
@@ -131,7 +147,7 @@
 
                     lastOpen.AddLast(child);
                     open.Add(child);
-                    if (!child.LocationsToVisit.Any() && (path == null || path.H > child.H))
+                    if (targetCondition(child, returnState) && (path == null || path.H > child.H))
                     {
                         path = child;
                         var nodesToDelete = open.Where(n => n.H >= path.H).ToList();
