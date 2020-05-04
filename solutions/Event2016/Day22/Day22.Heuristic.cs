@@ -1,19 +1,19 @@
-﻿using System;
-using System.Linq;
-using AdventOfCode.Solutions.Common;
-
-namespace AdventOfCode.Solutions.Event2016.Day22
+﻿namespace AdventOfCode.Solutions.Event2016.Day22
 {
+    using System;
+    using System.Linq;
+    using AdventOfCode.Solutions.Common;
+
     public partial class Day22
     {
         public static int CalcF(X_Y targetPos, X_Y emptyPos, X_Y endTargetNodePos)
         {
             var adjustedTargets = new X_Y[]
             {
-                new X_Y() { X = targetPos.X - 1, Y = targetPos.Y},
-                new X_Y() { X = targetPos.X + 1, Y = targetPos.Y},
-                new X_Y() { X = targetPos.X,     Y = targetPos.Y+1},
-                new X_Y() { X = targetPos.X,     Y = targetPos.Y-1},
+                new X_Y() { X = targetPos.X - 1, Y = targetPos.Y },
+                new X_Y() { X = targetPos.X + 1, Y = targetPos.Y },
+                new X_Y() { X = targetPos.X, Y = targetPos.Y + 1 },
+                new X_Y() { X = targetPos.X, Y = targetPos.Y - 1 },
             };
 
             var fs = adjustedTargets.Select(t =>
@@ -46,6 +46,7 @@ namespace AdventOfCode.Solutions.Event2016.Day22
             {
                 return CalcFAdjustedLine(distanceTargetY, distanceEmptyY);
             }
+
             if (distanceTargetY == 0)
             {
                 return CalcFAdjustedLine(distanceTargetX, distanceEmptyX);
@@ -74,17 +75,18 @@ namespace AdventOfCode.Solutions.Event2016.Day22
         {
             if (distanceTarget == distanceEmpty)
             {
-                return 3 + 5 * (distanceTarget - 1);
+                return 3 + (5 * (distanceTarget - 1));
             }
             else
             {
                 if (distanceTarget < distanceEmpty)
                 {
-                    // far 
+                    // far.
                     return 5 * distanceTarget;
                 }
-                // near
-                return 1 + 5 * (distanceTarget - 1);
+
+                // near.
+                return 1 + (5 * (distanceTarget - 1));
             }
         }
     }

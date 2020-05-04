@@ -4,8 +4,8 @@
     {
         public class MapNode
         {
-            public char? location;
-            public bool canMove;
+            public char? Location;
+            public bool CanMove;
         }
     }
 }

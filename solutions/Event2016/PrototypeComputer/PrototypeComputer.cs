@@ -1,44 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using AdventOfCode.Solutions.Common;
-
-namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
+﻿namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
 {
+    using System;
+    using System.Collections.Generic;
+    using AdventOfCode.Solutions.Common;
+
     internal partial class PrototypeComputer
     {
-        public State state;
-
-        public PrototypeComputer(string input)
-        {
-            var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-
-            state = new State
-            {
-                CurrentIndex = 0,
-                Registers = InitRegisters(),
-                Instructions = InitCommands(lines),
-            };
-        }
-
-        public void SetRegister(string key, int value)
-        {
-            state.Registers[key] = value;
-        }
-
-        public Dictionary<string, long> Run()
-        {
-            while (state.CurrentIndex < state.Instructions.Count)
-            {
-                var instruction = state.Instructions[state.CurrentIndex];
-                methodsMapping[instruction.Method](state, instruction.Args);
-
-                ++state.CurrentIndex;
-            }
-
-            return state.Registers;
-        }
-
-        private static readonly IDictionary<string, Action<State, string[]>> methodsMapping = new Dictionary<string, Action<State, string[]>>()
+        private static readonly IDictionary<string, Action<PrototypeComputerState, string[]>> MethodsMapping = new Dictionary<string, Action<PrototypeComputerState, string[]>>()
         {
             {
                 "cpy", (state, args) =>
@@ -47,6 +15,7 @@ namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
                     {
                         return;
                     }
+
                     state.Registers[args[1]] = GetValue(args[0], state);
                 }
             },
@@ -57,6 +26,7 @@ namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
                     {
                         return;
                     }
+
                     // inc x increases the value of register x by one.
                     state.Registers[args[0]] += 1;
                 }
@@ -68,6 +38,7 @@ namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
                     {
                         return;
                     }
+
                     // dec x decreases the value of register x by one.
                     state.Registers[args[0]] -= 1;
                 }
@@ -75,7 +46,7 @@ namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
             {
                 "jnz", (state, args) =>
                 {
-                    //jnz X Y jumps with an offset
+                    // jnz X Y jumps with an offset
                     if (GetValue(args[0], state) != 0)
                     {
                         state.CurrentIndex += GetValue(args[1], state) - 1;
@@ -96,14 +67,52 @@ namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
 
                     instruction.Method = ToggleMethod(instruction.Method);
                 }
-            }
+            },
         };
+
+        private readonly PrototypeComputerState state;
+
+        public PrototypeComputer(string input)
+        {
+            var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+
+            this.state = new PrototypeComputerState
+            {
+                CurrentIndex = 0,
+                Registers = InitRegisters(),
+                Instructions = this.InitCommands(lines),
+            };
+        }
+
+        internal PrototypeComputerState State
+        {
+            get => this.state;
+            private set { }
+        }
+
+        public void SetRegister(string key, int value)
+        {
+            this.state.Registers[key] = value;
+        }
+
+        public Dictionary<string, long> Run()
+        {
+            while (this.state.CurrentIndex < this.state.Instructions.Count)
+            {
+                var instruction = this.state.Instructions[this.state.CurrentIndex];
+                MethodsMapping[instruction.Method](this.state, instruction.Args);
+
+                ++this.state.CurrentIndex;
+            }
+
+            return this.state.Registers;
+        }
 
         private static string ToggleMethod(string method)
         {
             switch (method)
             {
-                //inc becomes dec, and all other one-argument instructions become inc.
+                // inc becomes dec, and all other one-argument instructions become inc.
                 case "inc":
                     return "dec";
                 case "dec":
@@ -120,9 +129,9 @@ namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
             }
         }
 
-        private static int GetValue(string input, State state)
+        private static int GetValue(string input, PrototypeComputerState state)
         {
-            if (Int32.TryParse(input, out var value))
+            if (int.TryParse(input, out var value))
             {
                 return value;
             }
@@ -134,14 +143,14 @@ namespace AdventOfCode.Solutions.Event2016.PrototypeComputer
         {
             return new Dictionary<string, long>()
             {
-                { "a", 0},
-                { "b", 0},
-                { "c", 0},
-                { "d", 0},
-                { "e", 0},
-                { "f", 0},
-                { "g", 0},
-                { "h", 0},
+                { "a", 0 },
+                { "b", 0 },
+                { "c", 0 },
+                { "d", 0 },
+                { "e", 0 },
+                { "f", 0 },
+                { "g", 0 },
+                { "h", 0 },
             };
         }
 

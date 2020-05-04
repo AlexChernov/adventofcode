@@ -1,33 +1,36 @@
-﻿using System;
-
-namespace AdventOfCode.Solutions.Common
+﻿namespace AdventOfCode.Solutions.Common
 {
+    using System;
+
     public class X_Y
     {
-        public int X;
-        public int Y;
+        public int X { get; set; }
 
+        public int Y { get; set; }
+
+        /// <inheritdoc/>
         public override bool Equals(object obj)
         {
-            return obj is X_Y y &&
-                   X == y.X &&
-                   Y == y.Y;
+            return obj is X_Y other &&
+                   this.X == other.X &&
+                   this.Y == other.Y;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
-            return HashCode.Combine(X, Y);
+            return HashCode.Combine(this.X, this.Y);
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
-            return X.ToString() + "_" + Y.ToString();
+            return this.X.ToString() + "_" + this.Y.ToString();
         }
 
         public int CalcManhattanDistance(X_Y other)
         {
-            return Math.Abs(other.X - X) + Math.Abs(other.Y - Y);
+            return Math.Abs(other.X - this.X) + Math.Abs(other.Y - this.Y);
         }
     }
-
 }

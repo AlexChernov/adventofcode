@@ -1,9 +1,9 @@
-﻿using AdventOfCode.Solutions.Common;
-using System;
-using System.Collections.Generic;
-
-namespace AdventOfCode.Solutions.Event2016.Day24
+﻿namespace AdventOfCode.Solutions.Event2016.Day24
 {
+    using System;
+    using System.Collections.Generic;
+    using AdventOfCode.Solutions.Common;
+
     public partial class Day24
     {
         public class GraphNode
@@ -14,30 +14,34 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             public int H { get; internal set; }
 
             public int F { get; internal set; }
+
             public int G
             {
-                get => F + H;
+                get => this.F + this.H;
                 private set { }
             }
 
             public X_Y CurrentPos { get; internal set; }
+
             public string LocationsToVisit { get; internal set; }
 
             public override bool Equals(object obj)
             {
                 return obj is GraphNode node &&
-                       EqualityComparer<X_Y>.Default.Equals(CurrentPos, node.CurrentPos) &&
-                       LocationsToVisit == node.LocationsToVisit;
+                       EqualityComparer<X_Y>.Default.Equals(this.CurrentPos, node.CurrentPos) &&
+                       this.LocationsToVisit == node.LocationsToVisit;
             }
 
+            /// <inheritdoc/>
             public override int GetHashCode()
             {
-                return HashCode.Combine(CurrentPos, LocationsToVisit);
+                return HashCode.Combine(this.CurrentPos, this.LocationsToVisit);
             }
 
+            /// <inheritdoc/>
             public override string ToString()
             {
-                return CurrentPos.ToString() + "_" + LocationsToVisit;
+                return this.CurrentPos.ToString() + "_" + this.LocationsToVisit;
             }
         }
     }

@@ -1,8 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AdventOfCode.Solutions.Common
+﻿namespace AdventOfCode.Solutions.Common
 {
+    using System;
+    using System.Collections.Generic;
+
     public static class Utils
     {
         public static int IndexOfFirstGreaterValue(IList<int> arr, int target)
@@ -14,14 +14,13 @@ namespace AdventOfCode.Solutions.Common
             {
                 int mid = (start + end) / 2;
 
-                // Move to right side if target is 
-                // greater. 
+                // Move to right side if target is greater.
                 if (arr[mid] < target)
                 {
                     start = mid + 1;
                 }
 
-                // Move left side. 
+                // Move left side.
                 else
                 {
                     ans = mid;

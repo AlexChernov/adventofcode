@@ -1,26 +1,33 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace AdventOfCode.Solutions.Common
+﻿namespace AdventOfCode.Solutions.Common
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Linq;
+
     public class HashSetOrderedBy<T, TS> : ICollection<T>, IEnumerable<T>, IEnumerable, IReadOnlyCollection<T>, ISet<T>
     {
         private readonly HashSet<T> set;
         private readonly SortedDictionary<TS, HashSet<T>> sortingMap;
-        private readonly Func<T, TS> KeySelector;
-
-        private HashSetOrderedBy() : this(null)
-        {
-        }
+        private readonly Func<T, TS> keySelector;
 
         public HashSetOrderedBy(Func<T, TS> selector)
         {
-            this.KeySelector = selector;
+            this.keySelector = selector;
             this.set = new HashSet<T>();
             this.sortingMap = new SortedDictionary<TS, HashSet<T>>();
         }
+
+        private HashSetOrderedBy()
+            : this(null)
+        {
+        }
+
+        /// <inheritdoc/>
+        public int Count => this.set.Count;
+
+        /// <inheritdoc/>
+        public bool IsReadOnly => false;
 
         public T ValueWithMinSelector()
         {
@@ -28,103 +35,115 @@ namespace AdventOfCode.Solutions.Common
             return kvp.Value.First();
         }
 
-        public int Count => set.Count;
-
-        public bool IsReadOnly => false;
-
+        /// <inheritdoc/>
         public void Add(T item)
         {
             ((ISet<T>)this).Add(item);
         }
 
+        /// <inheritdoc/>
         bool ISet<T>.Add(T item)
         {
-            var added = set.Add(item);
-            var key = KeySelector(item);
+            var added = this.set.Add(item);
+            var key = this.keySelector(item);
 
             if (added)
             {
-                if (!sortingMap.ContainsKey(key))
+                if (!this.sortingMap.ContainsKey(key))
                 {
-                    sortingMap.Add(key, new HashSet<T>());
+                    this.sortingMap.Add(key, new HashSet<T>());
                 }
-                sortingMap[key].Add(item);
+
+                this.sortingMap[key].Add(item);
             }
 
             return added;
         }
 
+        /// <inheritdoc/>
         public void Clear()
         {
-            set.Clear();
-            sortingMap.Clear();
+            this.set.Clear();
+            this.sortingMap.Clear();
         }
 
+        /// <inheritdoc/>
         public bool Contains(T item)
         {
-            return set.Contains(item);
+            return this.set.Contains(item);
         }
 
+        /// <inheritdoc/>
         public void CopyTo(T[] array, int arrayIndex)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public void ExceptWith(IEnumerable<T> other)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public void IntersectWith(IEnumerable<T> other)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public IEnumerator<T> GetEnumerator()
         {
-            return set.GetEnumerator();
+            return this.set.GetEnumerator();
         }
 
+        /// <inheritdoc/>
         public bool IsProperSubsetOf(IEnumerable<T> other)
         {
-            return set.IsProperSubsetOf(other);
+            return this.set.IsProperSubsetOf(other);
         }
 
+        /// <inheritdoc/>
         public bool IsProperSupersetOf(IEnumerable<T> other)
         {
-            return set.IsProperSupersetOf(other);
+            return this.set.IsProperSupersetOf(other);
         }
 
+        /// <inheritdoc/>
         public bool IsSubsetOf(IEnumerable<T> other)
         {
-            return set.IsSubsetOf(other);
+            return this.set.IsSubsetOf(other);
         }
 
+        /// <inheritdoc/>
         public bool IsSupersetOf(IEnumerable<T> other)
         {
-            return set.IsSupersetOf(other);
+            return this.set.IsSupersetOf(other);
         }
 
+        /// <inheritdoc/>
         public bool Overlaps(IEnumerable<T> other)
         {
-            return set.Overlaps(other);
+            return this.set.Overlaps(other);
         }
 
+        /// <inheritdoc/>
         public bool TryGetValue(T equalValue, out T actualValue)
         {
-            return set.TryGetValue(equalValue, out actualValue);
+            return this.set.TryGetValue(equalValue, out actualValue);
         }
 
+        /// <inheritdoc/>
         public bool Remove(T item)
         {
-            if (set.TryGetValue(item, out var actualItem))
+            if (this.set.TryGetValue(item, out var actualItem))
             {
-                var key = KeySelector(actualItem);
-                set.Remove(actualItem);
-                sortingMap[key].Remove(actualItem);
-                if (!sortingMap[key].Any())
+                var key = this.keySelector(actualItem);
+                this.set.Remove(actualItem);
+                this.sortingMap[key].Remove(actualItem);
+                if (!this.sortingMap[key].Any())
                 {
-                    sortingMap.Remove(key);
+                    this.sortingMap.Remove(key);
                 }
 
                 return true;
@@ -133,11 +152,13 @@ namespace AdventOfCode.Solutions.Common
             return false;
         }
 
+        /// <inheritdoc/>
         public bool SetEquals(IEnumerable<T> other)
         {
-            return set.SetEquals(other);
+            return this.set.SetEquals(other);
         }
 
+        /// <inheritdoc/>
         public void SymmetricExceptWith(IEnumerable<T> other)
         {
             throw new NotImplementedException();
@@ -150,7 +171,7 @@ namespace AdventOfCode.Solutions.Common
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            return ((IEnumerable)set).GetEnumerator();
+            return ((IEnumerable)this.set).GetEnumerator();
         }
     }
 }

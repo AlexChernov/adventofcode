@@ -4,13 +4,13 @@
     {
         private class MapNode
         {
-            public int closeCount;
-            public int openCount;
-            public bool canMove;
+            public int CloseCount;
+            public int OpenCount;
+            public bool CanMove;
 
             public override string ToString()
             {
-                return canMove ? "." + (openCount % 10).ToString() + "_" + (closeCount % 10).ToString() : "####";
+                return this.CanMove ? "." + (this.OpenCount % 10).ToString() + "_" + (this.CloseCount % 10).ToString() : "####";
             }
         }
     }

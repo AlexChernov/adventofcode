@@ -1,46 +1,56 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Linq;
-using AdventOfCode.Solutions.Common;
-
-namespace AdventOfCode.Solutions.Event2016.Day21
+﻿namespace AdventOfCode.Solutions.Event2016.Day21
 {
-    public class Day21 : IAdventOfCodeDayRunner
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using AdventOfCode.Solutions.Common;
+
+    public partial class Day21 : IAdventOfCodeDayRunner
     {
+        private static readonly Dictionary<int, int> DerotateOnLetterMap = new Dictionary<int, int>()
+        {
+            { 1, 0 },
+            { 3, 1 },
+            { 5, 2 },
+            { 7, 3 },
+            { 2, 4 },
+            { 4, 5 },
+            { 6, 6 },
+            { 0, 7 },
+        };
+
+        /// <inheritdoc/>
         public bool HaveVisualization() => false;
 
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             var commands = InitCommands(lines);
-            var state = new State { word = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' } };
+            var state = new State { Word = new char[] { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h' } };
 
             foreach (var cmd in commands)
             {
                 cmd(state);
             }
 
-            yield return new string(state.word);
+            yield return new string(state.Word);
         }
 
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             var commands = InitReverseCommands(lines);
-            var state = new State { word = "fbgdceah".ToCharArray() };
+            var state = new State { Word = "fbgdceah".ToCharArray() };
 
             for (int i = commands.Count - 1; i >= 0; --i)
             {
                 commands[i](state);
             }
 
-            yield return new string(state.word);
-        }
-
-        public class State
-        {
-            public char[] word;
+            yield return new string(state.Word);
         }
 
         private static IEnumerable<Action<State>> InitCommands(string[] lines)
@@ -52,10 +62,11 @@ namespace AdventOfCode.Solutions.Event2016.Day21
                     var match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
-                        var y = Int32.Parse(match.Groups["Y"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
+                        var y = int.Parse(match.Groups["Y"].Value);
                         return (State state) => Swap(state, x, y);
                     }
+
                     pattern = @"swap letter (?<X>\w) with letter (?<Y>\w)";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
@@ -64,20 +75,23 @@ namespace AdventOfCode.Solutions.Event2016.Day21
                         var y = match.Groups["Y"].Value[0];
                         return (State state) => Swap(state, x, y);
                     }
+
                     pattern = @"rotate left (?<X>\d+) step";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
                         return (State state) => RotateLeft(state, x);
                     }
+
                     pattern = @"rotate right (?<X>\d+) step";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
                         return (State state) => RotateRight(state, x);
                     }
+
                     pattern = @"rotate based on position of letter (?<X>\w)";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
@@ -85,23 +99,24 @@ namespace AdventOfCode.Solutions.Event2016.Day21
                         var x = match.Groups["X"].Value[0];
                         return (State state) => RotateOnLetter(state, x);
                     }
+
                     pattern = @"reverse positions (?<X>\d+) through (?<Y>\d+)";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
-                        var y = Int32.Parse(match.Groups["Y"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
+                        var y = int.Parse(match.Groups["Y"].Value);
                         return (State state) => Reverse(state, x, y);
                     }
+
                     pattern = @"move position (?<X>\d+) to position (?<Y>\d+)";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
-                        var y = Int32.Parse(match.Groups["Y"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
+                        var y = int.Parse(match.Groups["Y"].Value);
                         return (State state) => Move(state, x, y);
                     }
-
 
                     return (State state) => { };
                 })
@@ -117,10 +132,11 @@ namespace AdventOfCode.Solutions.Event2016.Day21
                     var match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
-                        var y = Int32.Parse(match.Groups["Y"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
+                        var y = int.Parse(match.Groups["Y"].Value);
                         return (State state) => Swap(state, x, y);
                     }
+
                     pattern = @"swap letter (?<X>\w) with letter (?<Y>\w)";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
@@ -129,20 +145,23 @@ namespace AdventOfCode.Solutions.Event2016.Day21
                         var y = match.Groups["Y"].Value[0];
                         return (State state) => Swap(state, x, y);
                     }
+
                     pattern = @"rotate left (?<X>\d+) step";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
                         return (State state) => RotateRight(state, x);
                     }
+
                     pattern = @"rotate right (?<X>\d+) step";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
                         return (State state) => RotateLeft(state, x);
                     }
+
                     pattern = @"rotate based on position of letter (?<X>\w)";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
@@ -150,40 +169,29 @@ namespace AdventOfCode.Solutions.Event2016.Day21
                         var x = match.Groups["X"].Value[0];
                         return (State state) => DerotateOnLetter(state, x);
                     }
+
                     pattern = @"reverse positions (?<X>\d+) through (?<Y>\d+)";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
-                        var y = Int32.Parse(match.Groups["Y"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
+                        var y = int.Parse(match.Groups["Y"].Value);
                         return (State state) => Reverse(state, x, y);
                     }
+
                     pattern = @"move position (?<X>\d+) to position (?<Y>\d+)";
                     match = Regex.Match(l, pattern);
                     if (match.Success)
                     {
-                        var x = Int32.Parse(match.Groups["X"].Value);
-                        var y = Int32.Parse(match.Groups["Y"].Value);
+                        var x = int.Parse(match.Groups["X"].Value);
+                        var y = int.Parse(match.Groups["Y"].Value);
                         return (State state) => Move(state, y, x);
                     }
-
 
                     return (State state) => { };
                 })
                 .ToList();
         }
-
-        private static readonly Dictionary<int, int> DerotateOnLetterMap = new Dictionary<int, int>()
-        {
-            { 1,0},
-            { 3,1},
-            { 5,2},
-            { 7,3},
-            { 2,4},
-            { 4,5},
-            { 6,6},
-            { 0,7},
-        };
 
         private static void DerotateOnLetter(State state, char x)
         {
@@ -194,7 +202,7 @@ namespace AdventOfCode.Solutions.Event2016.Day21
 
         private static void RotateRight(State state, int x)
         {
-            RotateRight(state, x, 0, state.word.Length - 1);
+            RotateRight(state, x, 0, state.Word.Length - 1);
         }
 
         private static void Move(State state, int from, int to)
@@ -222,14 +230,14 @@ namespace AdventOfCode.Solutions.Event2016.Day21
         {
             var index = IndexOf(state, x);
             index += index >= 4 ? 2 : 1;
-            RotateRight(state, index, 0, state.word.Length - 1);
+            RotateRight(state, index, 0, state.Word.Length - 1);
         }
 
         private static int IndexOf(State state, char x)
         {
-            for (int i = 0; i < state.word.Length; ++i)
+            for (int i = 0; i < state.Word.Length; ++i)
             {
-                var ch = state.word[i];
+                var ch = state.Word[i];
                 if (ch == x)
                 {
                     return i;
@@ -244,7 +252,7 @@ namespace AdventOfCode.Solutions.Event2016.Day21
             var currentChainStart = from;
 
             var currentIndex = from;
-            var prevValue = state.word[currentIndex];
+            var prevValue = state.Word[currentIndex];
             var len = to - from + 1;
             var nextIndex = CalcNextIndex(currentIndex, shift, from, len);
             if (currentIndex == nextIndex)
@@ -256,9 +264,9 @@ namespace AdventOfCode.Solutions.Event2016.Day21
             {
                 nextIndex = CalcNextIndex(currentIndex, shift, from, len);
 
-                var _temp = state.word[nextIndex];
-                state.word[nextIndex] = prevValue;
-                prevValue = _temp;
+                var temp = state.Word[nextIndex];
+                state.Word[nextIndex] = prevValue;
+                prevValue = temp;
 
                 currentIndex = nextIndex;
 
@@ -266,7 +274,7 @@ namespace AdventOfCode.Solutions.Event2016.Day21
                 {
                     ++currentChainStart;
                     currentIndex = currentChainStart;
-                    prevValue = state.word[currentIndex];
+                    prevValue = state.Word[currentIndex];
                 }
             }
         }
@@ -278,7 +286,7 @@ namespace AdventOfCode.Solutions.Event2016.Day21
 
         private static int Mod(int x, int m)
         {
-            return (x % m + m) % m;
+            return ((x % m) + m) % m;
         }
 
         private static void RotateLeft(State state, int x)
@@ -288,9 +296,9 @@ namespace AdventOfCode.Solutions.Event2016.Day21
 
         private static void Swap(State state, int x, int y)
         {
-            var temp = state.word[x];
-            state.word[x] = state.word[y];
-            state.word[y] = temp;
+            var temp = state.Word[x];
+            state.Word[x] = state.Word[y];
+            state.Word[y] = temp;
         }
 
         private static void Swap(State state, char x, char y)

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AdventOfCode.Solutions.Common;
-
-namespace AdventOfCode.Solutions.Event2016.Day22
+﻿namespace AdventOfCode.Solutions.Event2016.Day22
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AdventOfCode.Solutions.Common;
+
     public partial class Day22
     {
         private static IEnumerable<State> FindPath(Node[,] nodes, X_Y emptyNodePos)
@@ -40,8 +40,10 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                         {
                             continue;
                         }
+
                         open.Remove(existingNode);
                     }
+
                     open.Add(child);
                     if (child.TargetNodePos.Equals(endTargetNodePos))
                     {
@@ -49,6 +51,7 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                         break;
                     }
                 }
+
                 open.Remove(currentNode);
                 close.Add(currentNode);
                 yield return new State
@@ -65,10 +68,10 @@ namespace AdventOfCode.Solutions.Event2016.Day22
         {
             var children = new X_Y[]
             {
-                new X_Y() { X = state.EmptyNodePos.X - 1, Y = state.EmptyNodePos.Y},
-                new X_Y() { X = state.EmptyNodePos.X + 1, Y = state.EmptyNodePos.Y},
-                new X_Y() { X = state.EmptyNodePos.X, Y = state.EmptyNodePos.Y+1},
-                new X_Y() { X = state.EmptyNodePos.X, Y = state.EmptyNodePos.Y-1},
+                new X_Y() { X = state.EmptyNodePos.X - 1, Y = state.EmptyNodePos.Y },
+                new X_Y() { X = state.EmptyNodePos.X + 1, Y = state.EmptyNodePos.Y },
+                new X_Y() { X = state.EmptyNodePos.X, Y = state.EmptyNodePos.Y + 1 },
+                new X_Y() { X = state.EmptyNodePos.X, Y = state.EmptyNodePos.Y - 1 },
             };
 
             foreach (var childPos in children)

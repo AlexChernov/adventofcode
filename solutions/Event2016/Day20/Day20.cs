@@ -1,14 +1,16 @@
-﻿using AdventOfCode.Solutions.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
-namespace AdventOfCode.Solutions.Event2016.Day20
+﻿namespace AdventOfCode.Solutions.Event2016.Day20
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using AdventOfCode.Solutions.Common;
+
     public class Day20 : IAdventOfCodeDayRunner
     {
+        /// <inheritdoc/>
         public bool HaveVisualization() => false;
 
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -52,12 +54,14 @@ namespace AdventOfCode.Solutions.Event2016.Day20
                 {
                     break;
                 }
+
                 min = range.Item2 + 1;
             }
 
             yield return min.ToString() + " is minimum allowerd IP.";
         }
 
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -102,11 +106,13 @@ namespace AdventOfCode.Solutions.Event2016.Day20
                 {
                     count += range.Item1 - lastValid;
                 }
+
                 if (range.Item2 >= lastValid)
                 {
                     lastValid = range.Item2 + 1;
                 }
             }
+
             count += 4294967295 - lastValid + 1;
 
             yield return count.ToString() + " are allowed by the blacklist.";
@@ -114,8 +120,8 @@ namespace AdventOfCode.Solutions.Event2016.Day20
 
         private static bool ValuesValid(string left, string right, out long leftValue, out long rightValue)
         {
-            var leftIsValid = Int64.TryParse(left, out leftValue);
-            var rightIsValid = Int64.TryParse(right, out rightValue);
+            var leftIsValid = long.TryParse(left, out leftValue);
+            var rightIsValid = long.TryParse(right, out rightValue);
 
             return leftIsValid && rightIsValid;
         }

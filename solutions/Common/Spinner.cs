@@ -3,25 +3,26 @@
     public class Spinner
     {
         private int counter = 0;
+
         public string State { get; private set; }
 
         public void Turn()
         {
-            counter++;
-            switch (counter % 4)
+            this.counter++;
+            switch (this.counter % 4)
             {
                 case 0:
-                    State = "/";
-                    counter = 0;
+                    this.State = "/";
+                    this.counter = 0;
                     break;
                 case 1:
-                    State = "-";
+                    this.State = "-";
                     break;
                 case 2:
-                    State = "\\";
+                    this.State = "\\";
                     break;
                 case 3:
-                    State = "|";
+                    this.State = "|";
                     break;
             }
         }

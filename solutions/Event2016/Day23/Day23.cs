@@ -1,29 +1,31 @@
-﻿using System;
-using System.Collections.Generic;
-using AdventOfCode.Solutions.Common;
-
-namespace AdventOfCode.Solutions.Event2016.Day23
+﻿namespace AdventOfCode.Solutions.Event2016.Day23
 {
+    using System.Collections.Generic;
+    using AdventOfCode.Solutions.Common;
+
     public class Day23 : IAdventOfCodeDayRunner
     {
+        /// <inheritdoc/>
         public bool HaveVisualization() => false;
 
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
-            return SimplifiedProgram(input, 7);
+            return this.SimplifiedProgram(input, 7);
         }
 
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
-            return SimplifiedProgram(input, 12);
+            return this.SimplifiedProgram(input, 12);
         }
 
         private IEnumerable<string> SimplifiedProgram(string program, int input)
         {
             var comp = new PrototypeComputer.PrototypeComputer(program);
 
-            if (!Int32.TryParse(comp.state.Instructions[19].Args[0], out var left) ||
-                !Int32.TryParse(comp.state.Instructions[20].Args[0], out var right))
+            if (!int.TryParse(comp.State.Instructions[19].Args[0], out var left) ||
+                !int.TryParse(comp.State.Instructions[20].Args[0], out var right))
             {
                 yield return "Wrong input!.\nThis solution abuses fact that program should calculate factorial of 7 and add multiply arguments of instructions #19 and #20.";
                 yield break;

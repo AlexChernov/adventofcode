@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using System.Linq;
-using AdventOfCode.Solutions.Common;
-
-namespace AdventOfCode.Solutions.Event2016.Day22
+﻿namespace AdventOfCode.Solutions.Event2016.Day22
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text.RegularExpressions;
+    using AdventOfCode.Solutions.Common;
+
     public partial class Day22 : IAdventOfCodeDayRunner
     {
+        /// <inheritdoc/>
         public bool HaveVisualization() => false;
 
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -30,6 +32,7 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                 {
                     continue;
                 }
+
                 var index = Utils.IndexOfFirstGreaterValue(listOfAvailabe, node.Used);
 
                 if (index < 0)
@@ -42,12 +45,14 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                 {
                     count--;
                 }
+
                 result += count;
             }
 
             yield return "There are " + result.ToString() + " viable pairs of nodes.";
         }
 
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -61,7 +66,7 @@ namespace AdventOfCode.Solutions.Event2016.Day22
 
             var posOfEmptyNode = GetEmptyNode(nodes);
             GraphNode pathNode = null;
-            var calcMap = shouldVisualise ? InitMap(nodes, posOfEmptyNode) : null;
+            var calcMap = shouldVisualise ? this.InitMap(nodes, posOfEmptyNode) : null;
             var spinner = new Spinner();
             foreach (var state in FindPath(nodes, posOfEmptyNode))
             {
@@ -71,11 +76,11 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                     continue;
                 }
 
-                UpdateCalcMap(calcMap, state);
+                this.UpdateCalcMap(calcMap, state);
                 spinner.Turn();
                 var titleCalc = "Calculating path... " + spinner.State;
 
-                yield return PrintPathFindingState(calcMap, state.LastClosed, titleCalc);
+                yield return this.PrintPathFindingState(calcMap, state.LastClosed, titleCalc);
             }
 
             var title = pathNode.H.ToString() + " is the fewest number of steps required to move your goal data to target node.";
@@ -149,8 +154,8 @@ namespace AdventOfCode.Solutions.Event2016.Day22
             var match = regex.Match(last);
             if (match.Success)
             {
-                var x = Int32.Parse(match.Groups["X"].Value);
-                var y = Int32.Parse(match.Groups["Y"].Value);
+                var x = int.Parse(match.Groups["X"].Value);
+                var y = int.Parse(match.Groups["Y"].Value);
                 nodes = new Node[x + 1, y + 1];
             }
             else
@@ -163,10 +168,10 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                 match = regex.Match(line);
                 if (match.Success)
                 {
-                    var x = Int32.Parse(match.Groups["X"].Value);
-                    var y = Int32.Parse(match.Groups["Y"].Value);
-                    var used = Int32.Parse(match.Groups["used"].Value);
-                    var available = Int32.Parse(match.Groups["Available"].Value);
+                    var x = int.Parse(match.Groups["X"].Value);
+                    var y = int.Parse(match.Groups["Y"].Value);
+                    var used = int.Parse(match.Groups["used"].Value);
+                    var available = int.Parse(match.Groups["Available"].Value);
                     nodes[x, y] = new Node { Used = used, Available = available };
                 }
             }

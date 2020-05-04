@@ -1,22 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using AdventOfCode.Solutions.Common;
-
-namespace AdventOfCode.Solutions.Event2016.Day24
+﻿namespace AdventOfCode.Solutions.Event2016.Day24
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using AdventOfCode.Solutions.Common;
+
     public partial class Day24 : IAdventOfCodeDayRunner
     {
-        public bool HaveVisualization()
-        {
-            return true;
-        }
+        public bool HaveVisualization() => true;
 
+        /// <summary>
+        /// Runs the first task.
+        /// </summary>
+        /// <param name="input">The input text.</param>
+        /// <param name="shouldVisualise">Should visualise.</param>
+        /// <returns>Returns enumeration of outputs.</returns>
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-            InitNodes(lines, out var locations, out var map);
+            this.InitNodes(lines, out var locations, out var map);
             if (!locations.TryGetValue('0', out _))
             {
                 yield return "Wrong input!";
@@ -24,26 +27,26 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             }
 
             var spinner = new Lazy<Spinner>(() => new Spinner());
-            var printMap = new Lazy<char[,]>(() => InitPrintMap(map));
+            var printMap = new Lazy<char[,]>(() => this.InitPrintMap(map));
             var graph = new Dictionary<char, Dictionary<char, GraphNode>>();
             foreach (var location in locations.Keys)
             {
-                foreach (var state in FillGraphForLocation(graph, map, locations, location))
+                foreach (var state in this.FillGraphForLocation(graph, map, locations, location))
                 {
                     if (!shouldVisualise)
                     {
                         continue;
                     }
 
-                    UpdatePrintMap(printMap.Value, state);
+                    this.UpdatePrintMap(printMap.Value, state);
                     spinner.Value.Turn();
                     var titleCalc = "Calculating path... " + spinner.Value.State;
 
-                    yield return PrintPathFindingState(printMap.Value, titleCalc);
+                    yield return this.PrintPathFindingState(printMap.Value, titleCalc);
                 }
             }
 
-            var path = SolveTSP(graph, locations, '0');
+            var path = this.SolveTSP(graph, locations, '0');
             var title = path.H.ToString() + " is the fewest number of steps required to move your goal data to target node.";
 
             if (!shouldVisualise)
@@ -68,14 +71,15 @@ namespace AdventOfCode.Solutions.Event2016.Day24
                     });
                     subPath = subPath.Parent;
                 }
+
                 lastLocation = path.LastLocation;
             }
 
-            var printPathMap = InitPrintMap(map);
+            var printPathMap = this.InitPrintMap(map);
             foreach (var node in printPath)
             {
                 printPathMap[node.CurrentPos.X, node.CurrentPos.Y] = node.LastLocation;
-                yield return PrintPathFindingState(printPathMap, title);
+                yield return this.PrintPathFindingState(printPathMap, title);
             }
         }
 
@@ -89,7 +93,7 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             GraphNode path = null;
 
             var locationsToVisit = new string(locations.Keys.OrderBy(c => c).ToArray());
-            locationsToVisit = VisitLocation(locationsToVisit, v);
+            locationsToVisit = this.VisitLocation(locationsToVisit, v);
 
             var initState = new GraphNode
             {
@@ -111,7 +115,7 @@ namespace AdventOfCode.Solutions.Event2016.Day24
                 var currentNode = open.ValueWithMinSelector();
                 var lastOpen = new LinkedList<GraphNode>();
 
-                var children = GenerateChildrenTSP(currentNode, graph, locations, path);
+                var children = this.GenerateChildrenTSP(currentNode, graph, locations, path);
 
                 foreach (var child in children)
                 {
@@ -121,8 +125,10 @@ namespace AdventOfCode.Solutions.Event2016.Day24
                         {
                             continue;
                         }
+
                         open.Remove(existingNode);
                     }
+
                     lastOpen.AddLast(child);
                     open.Add(child);
                     if (!child.LocationsToVisit.Any() && (path == null || path.H > child.H))
@@ -133,9 +139,9 @@ namespace AdventOfCode.Solutions.Event2016.Day24
                         {
                             open.Remove(nd);
                         }
-
                     }
                 }
+
                 open.Remove(currentNode);
                 close.Add(currentNode);
             }
@@ -143,9 +149,9 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             return path;
         }
 
-        private static string VisitLocation(string locationsToVisit, char charToRemove)
+        private string VisitLocation(string locationsToVisit, char charToRemove)
         {
-            return locationsToVisit.Replace(charToRemove.ToString(), "");
+            return locationsToVisit.Replace(charToRemove.ToString(), string.Empty);
         }
 
         private IEnumerable<GraphNode> GenerateChildrenTSP(GraphNode currentNode, Dictionary<char, Dictionary<char, GraphNode>> graph, Dictionary<char, X_Y> locations, GraphNode path)
@@ -165,13 +171,13 @@ namespace AdventOfCode.Solutions.Event2016.Day24
                     F = 0,
                     H = h,
                     LastLocation = nextLocationPath.Key,
-                    LocationsToVisit = VisitLocation(currentNode.LocationsToVisit, nextLocationPath.Key),
+                    LocationsToVisit = this.VisitLocation(currentNode.LocationsToVisit, nextLocationPath.Key),
                     Parent = currentNode,
                 };
             }
         }
 
-        private static IEnumerable<State> FillGraphForLocation(Dictionary<char, Dictionary<char, GraphNode>> graph, MapNode[,] map, Dictionary<char, X_Y> locations, char location)
+        private IEnumerable<State> FillGraphForLocation(Dictionary<char, Dictionary<char, GraphNode>> graph, MapNode[,] map, Dictionary<char, X_Y> locations, char location)
         {
             var visited = new bool[map.GetLength(0), map.GetLength(1)];
             var paths = new Dictionary<char, GraphNode>();
@@ -180,9 +186,9 @@ namespace AdventOfCode.Solutions.Event2016.Day24
                 new GraphNode
                 {
                     CurrentPos = locations[location],
-                    LocationsToVisit = "",
+                    LocationsToVisit = string.Empty,
                     LastLocation = location,
-                }
+                },
             };
 
             while (open.Any())
@@ -210,7 +216,7 @@ namespace AdventOfCode.Solutions.Event2016.Day24
                         };
 
                         if (!map.InBound(childPos) ||
-                            !map[childPos.X, childPos.Y].canMove ||
+                            !map[childPos.X, childPos.Y].CanMove ||
                             visited[childPos.X, childPos.Y] ||
                             nextOpen.Contains(childNode))
                         {
@@ -219,9 +225,9 @@ namespace AdventOfCode.Solutions.Event2016.Day24
 
                         nextOpen.Add(childNode);
 
-                        if (map[childPos.X, childPos.Y].location.HasValue)
+                        if (map[childPos.X, childPos.Y].Location.HasValue)
                         {
-                            paths.Add(map[childPos.X, childPos.Y].location.Value, childNode);
+                            paths.Add(map[childPos.X, childPos.Y].Location.Value, childNode);
 
                             yield return new State
                             {
@@ -247,7 +253,7 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             {
                 for (int j = 0; j < printMap.GetLength(1); ++j)
                 {
-                    printMap[i, j] = map[i, j].location ?? (map[i, j].canMove ? '.' : '#');
+                    printMap[i, j] = map[i, j].Location ?? (map[i, j].CanMove ? '.' : '#');
                 }
             }
 
@@ -265,6 +271,7 @@ namespace AdventOfCode.Solutions.Event2016.Day24
                 {
                     str.Append(printMap[i, j]);
                 }
+
                 str.AppendLine();
             }
 
@@ -281,7 +288,7 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             }
         }
 
-        private static void InitNodes(string[] lines, out Dictionary<char, X_Y> locations, out MapNode[,] map)
+        private void InitNodes(string[] lines, out Dictionary<char, X_Y> locations, out MapNode[,] map)
         {
             locations = new Dictionary<char, X_Y>();
             map = new MapNode[lines.Length, lines[0].Length];
@@ -289,10 +296,10 @@ namespace AdventOfCode.Solutions.Event2016.Day24
             {
                 for (int j = 0; j < lines[0].Length; ++j)
                 {
-                    map[i, j] = new MapNode { canMove = lines[i][j] != '#' };
-                    if ('0' <= lines[i][j] && lines[i][j] <= '9')
+                    map[i, j] = new MapNode { CanMove = lines[i][j] != '#' };
+                    if (lines[i][j] >= '0' && lines[i][j] <= '9')
                     {
-                        map[i, j].location = lines[i][j];
+                        map[i, j].Location = lines[i][j];
                         locations.Add(lines[i][j], new X_Y { X = i, Y = j });
                     }
                 }

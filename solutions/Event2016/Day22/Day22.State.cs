@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace AdventOfCode.Solutions.Event2016.Day22
+﻿namespace AdventOfCode.Solutions.Event2016.Day22
 {
+    using System.Collections.Generic;
+
     public partial class Day22
     {
         public class State

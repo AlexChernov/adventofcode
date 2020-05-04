@@ -1,25 +1,28 @@
-﻿using AdventOfCode.Solutions.Common;
-
-namespace AdventOfCode.Solutions.Event2016.Day22
+﻿namespace AdventOfCode.Solutions.Event2016.Day22
 {
+    using AdventOfCode.Solutions.Common;
+
     public partial class Day22
     {
         public class GraphNode
         {
-            public X_Y TargetNodePos;
-            public X_Y EmptyNodePos;
-            public int G
+            internal X_Y TargetNodePos { get; set; }
+
+            internal X_Y EmptyNodePos { get; set; }
+
+            internal int G
             {
-                get
-                {
-                    return F + H;
-                }
+                get => this.F + this.H;
                 private set { }
             }
-            public int H;
-            internal int F;
-            public GraphNode Parent = null;
 
+            internal int H { get; set; }
+
+            internal int F { get; set; }
+
+            internal GraphNode Parent { get; set; } = null;
+
+            /// <inheritdoc/>
             public override bool Equals(object obj)
             {
                 return obj is GraphNode other &&
@@ -27,14 +30,16 @@ namespace AdventOfCode.Solutions.Event2016.Day22
                     this.EmptyNodePos.Equals(other.EmptyNodePos);
             }
 
+            /// <inheritdoc/>
             public override int GetHashCode()
             {
-                return System.HashCode.Combine(TargetNodePos, EmptyNodePos);
+                return System.HashCode.Combine(this.TargetNodePos, this.EmptyNodePos);
             }
 
+            /// <inheritdoc/>
             public override string ToString()
             {
-                return TargetNodePos.ToString() + "-" + EmptyNodePos.ToString();
+                return this.TargetNodePos.ToString() + "-" + this.EmptyNodePos.ToString();
             }
         }
     }

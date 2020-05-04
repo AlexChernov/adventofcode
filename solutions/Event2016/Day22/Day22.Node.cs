@@ -4,8 +4,9 @@
     {
         public class Node
         {
-            public int Used;
-            public int Available;
+            public int Used { get; set; }
+
+            public int Available { get; set; }
         }
     }
 }
