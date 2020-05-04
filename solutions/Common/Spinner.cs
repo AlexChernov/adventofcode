@@ -1,11 +1,20 @@
 ﻿namespace AdventOfCode.Solutions.Common
 {
+    /// <summary>
+    /// The console spinner.
+    /// </summary>
     public class Spinner
     {
         private int counter = 0;
 
+        /// <summary>
+        /// Gets the state of spinner.
+        /// </summary>
         public string State { get; private set; }
 
+        /// <summary>
+        /// Modifies the state to imitate turn of spinner.
+        /// </summary>
         public void Turn()
         {
             this.counter++;

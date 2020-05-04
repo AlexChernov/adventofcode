@@ -1,8 +1,14 @@
 ﻿namespace BenchmarkRunner
 {
+    /// <summary>
+    /// The program.
+    /// </summary>
     public class Program
     {
-        public static void Main(string[] args)
+        /// <summary>
+        /// The entry point of program.
+        /// </summary>
+        public static void Main()
         {
             BenchmarkDotNet.Running.BenchmarkRunner.Run<BenchmarkRunner>();
         }

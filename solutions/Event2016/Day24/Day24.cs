@@ -6,16 +6,15 @@
     using System.Text;
     using AdventOfCode.Solutions.Common;
 
+    /// <summary>
+    /// Incapsulates logic for Day 24 of event.
+    /// </summary>
     public partial class Day24 : IAdventOfCodeDayRunner
     {
+        /// <inheritdoc/>
         public bool HaveVisualization() => true;
 
-        /// <summary>
-        /// Runs the first task.
-        /// </summary>
-        /// <param name="input">The input text.</param>
-        /// <param name="shouldVisualise">Should visualise.</param>
-        /// <returns>Returns enumeration of outputs.</returns>
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
@@ -83,6 +82,7 @@
             }
         }
 
+        /// <inheritdoc/>
         public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
             throw new NotImplementedException();

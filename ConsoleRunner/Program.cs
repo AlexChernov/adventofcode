@@ -1,21 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AdventOfCode.Solutions.Task2016_20;
-
-namespace AdventOfCode.ConsoleRunner
+﻿namespace ConsoleRunerCore
 {
-    class Program
+    using System;
+    using System.Threading;
+    using AdventOfCode.Solutions.Event2016.Day24;
+
+    /// <summary>
+    /// The program.
+    /// </summary>
+    internal class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// The entry point of the program.
+        /// </summary>
+        private static void Main()
         {
             var text = System.IO.File.ReadAllText(@".\input.txt");
+            /*
+             * var lines = text.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+             *
+             * var t = FindPathAStar(map, locations['0'], locations['1']);
+             *
+             * var skip = 0;
+             * var skipNumber = 50;
+             */
 
-            var result = Task2016_20.Run2(text);
-            Console.Out.WriteLine(result);
-            Console.Read();
+            foreach (var state in new Day24().RunTask1(text, true))
+            {
+                // if (skip < skipNumber)
+                // {
+                //     ++skip;
+                //     continue;
+                // }
+                // skip = 0;
+                Console.SetCursorPosition(0, 0);
+                Console.WriteLine(state);
+                Thread.Sleep(20);
+            }
         }
     }
 }

@@ -5,6 +5,9 @@
     using System.Linq;
     using AdventOfCode.Solutions.Common;
 
+    /// <summary>
+    /// Incapsulates logic for Day 20 of event.
+    /// </summary>
     public class Day20 : IAdventOfCodeDayRunner
     {
         /// <inheritdoc/>

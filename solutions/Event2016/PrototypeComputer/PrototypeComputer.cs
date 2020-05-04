@@ -4,7 +4,10 @@
     using System.Collections.Generic;
     using AdventOfCode.Solutions.Common;
 
-    internal partial class PrototypeComputer
+    /// <summary>
+    /// Incapsulates the prototype computer logic.
+    /// </summary>
+    internal class PrototypeComputer
     {
         private static readonly IDictionary<string, Action<PrototypeComputerState, string[]>> MethodsMapping = new Dictionary<string, Action<PrototypeComputerState, string[]>>()
         {
@@ -70,13 +73,15 @@
             },
         };
 
-        private readonly PrototypeComputerState state;
-
+        /// <summary>
+        /// Initializes a new instance of the <see cref="PrototypeComputer"/> class.
+        /// </summary>
+        /// <param name="input">The prototype computer input.</param>
         public PrototypeComputer(string input)
         {
             var lines = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
-            this.state = new PrototypeComputerState
+            this.State = new PrototypeComputerState
             {
                 CurrentIndex = 0,
                 Registers = InitRegisters(),
@@ -84,28 +89,36 @@
             };
         }
 
-        internal PrototypeComputerState State
-        {
-            get => this.state;
-            private set { }
-        }
+        /// <summary>
+        /// Gets the State.
+        /// </summary>
+        internal PrototypeComputerState State { get; private set; }
 
+        /// <summary>
+        /// Sets the register's value.
+        /// </summary>
+        /// <param name="key">The key of register.</param>
+        /// <param name="value">The value.</param>
         public void SetRegister(string key, int value)
         {
-            this.state.Registers[key] = value;
+            this.State.Registers[key] = value;
         }
 
+        /// <summary>
+        /// Runs instructions.
+        /// </summary>
+        /// <returns>The last state of registers.</returns>
         public Dictionary<string, long> Run()
         {
-            while (this.state.CurrentIndex < this.state.Instructions.Count)
+            while (this.State.CurrentIndex < this.State.Instructions.Count)
             {
-                var instruction = this.state.Instructions[this.state.CurrentIndex];
-                MethodsMapping[instruction.Method](this.state, instruction.Args);
+                var instruction = this.State.Instructions[this.State.CurrentIndex];
+                MethodsMapping[instruction.Method](this.State, instruction.Args);
 
-                ++this.state.CurrentIndex;
+                ++this.State.CurrentIndex;
             }
 
-            return this.state.Registers;
+            return this.State.Registers;
         }
 
         private static string ToggleMethod(string method)
@@ -163,7 +176,7 @@
                 var command = new Instruction()
                 {
                     Method = parameters[0],
-                    Args = Utils.SubArray(parameters, 1, parameters.Length - 1),
+                    Args = Utils.Subarray(parameters, 1, parameters.Length - 1),
                 };
 
                 commands.Add(command);

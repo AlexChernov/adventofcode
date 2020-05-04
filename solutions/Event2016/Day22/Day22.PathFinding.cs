@@ -4,6 +4,9 @@
     using System.Linq;
     using AdventOfCode.Solutions.Common;
 
+    /// <summary>
+    /// Incapsulates the path finding logic.
+    /// </summary>
     public partial class Day22
     {
         private static IEnumerable<State> FindPath(Node[,] nodes, X_Y emptyNodePos)
@@ -56,7 +59,7 @@
                 close.Add(currentNode);
                 yield return new State
                 {
-                    Close = close,
+                    Closed = close,
                     Open = open,
                     LastClosed = currentNode,
                     Path = path,

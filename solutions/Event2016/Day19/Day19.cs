@@ -4,6 +4,9 @@
     using System.Collections.Generic;
     using AdventOfCode.Solutions.Common;
 
+    /// <summary>
+    /// Incapsulates logic for Day 19 of event.
+    /// </summary>
     public class Day19 : IAdventOfCodeDayRunner
     {
         /// <inheritdoc/>

@@ -5,12 +5,21 @@
     using System.Collections.Generic;
     using System.Linq;
 
+    /// <summary>
+    /// The hash set stored by hash code, but ordered by specified selector.
+    /// </summary>
+    /// <typeparam name="T">The type of stored date.</typeparam>
+    /// <typeparam name="TS">The type of selector.</typeparam>
     public class HashSetOrderedBy<T, TS> : ICollection<T>, IEnumerable<T>, IEnumerable, IReadOnlyCollection<T>, ISet<T>
     {
         private readonly HashSet<T> set;
         private readonly SortedDictionary<TS, HashSet<T>> sortingMap;
         private readonly Func<T, TS> keySelector;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HashSetOrderedBy{T, TS}"/> class.
+        /// </summary>
+        /// <param name="selector">The selector of value to be ordered by.</param>
         public HashSetOrderedBy(Func<T, TS> selector)
         {
             this.keySelector = selector;
@@ -29,6 +38,10 @@
         /// <inheritdoc/>
         public bool IsReadOnly => false;
 
+        /// <summary>
+        /// Gets the value with min selector.
+        /// </summary>
+        /// <returns>The value with min selector.</returns>
         public T ValueWithMinSelector()
         {
             var kvp = this.sortingMap.First();
@@ -127,7 +140,12 @@
             return this.set.Overlaps(other);
         }
 
-        /// <inheritdoc/>
+        /// <summary>
+        /// Gets the actual value by equal value if existed.
+        /// </summary>
+        /// <param name="equalValue">The equal value.</param>
+        /// <param name="actualValue">The actual value.</param>
+        /// <returns>True if the element is successfully found and removed; otherwise, false.</returns>
         public bool TryGetValue(T equalValue, out T actualValue)
         {
             return this.set.TryGetValue(equalValue, out actualValue);
@@ -164,11 +182,13 @@
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         public void UnionWith(IEnumerable<T> other)
         {
             throw new NotImplementedException();
         }
 
+        /// <inheritdoc/>
         IEnumerator IEnumerable.GetEnumerator()
         {
             return ((IEnumerable)this.set).GetEnumerator();

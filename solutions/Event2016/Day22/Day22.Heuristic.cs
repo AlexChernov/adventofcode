@@ -4,25 +4,35 @@
     using System.Linq;
     using AdventOfCode.Solutions.Common;
 
+    /// <summary>
+    /// Incapsulates the heuristic logic.
+    /// </summary>
     public partial class Day22
     {
-        public static int CalcF(X_Y targetPos, X_Y emptyPos, X_Y endTargetNodePos)
+        /// <summary>
+        /// Calculates heuristic distance to target node.
+        /// </summary>
+        /// <param name="dataPos">The data node position.</param>
+        /// <param name="emptyPos">The empty node.</param>
+        /// <param name="targetNodePos">The target node.</param>
+        /// <returns>The heuristic distance to target node.</returns>
+        public static int CalcF(X_Y dataPos, X_Y emptyPos, X_Y targetNodePos)
         {
             var adjustedTargets = new X_Y[]
             {
-                new X_Y() { X = targetPos.X - 1, Y = targetPos.Y },
-                new X_Y() { X = targetPos.X + 1, Y = targetPos.Y },
-                new X_Y() { X = targetPos.X, Y = targetPos.Y + 1 },
-                new X_Y() { X = targetPos.X, Y = targetPos.Y - 1 },
+                new X_Y() { X = dataPos.X - 1, Y = dataPos.Y },
+                new X_Y() { X = dataPos.X + 1, Y = dataPos.Y },
+                new X_Y() { X = dataPos.X, Y = dataPos.Y + 1 },
+                new X_Y() { X = dataPos.X, Y = dataPos.Y - 1 },
             };
 
             var fs = adjustedTargets.Select(t =>
             {
-                var distanceTargetY = Math.Abs(targetPos.Y - endTargetNodePos.Y);
-                var distanceEmptyY = Math.Abs(t.Y - endTargetNodePos.Y);
+                var distanceTargetY = Math.Abs(dataPos.Y - targetNodePos.Y);
+                var distanceEmptyY = Math.Abs(t.Y - targetNodePos.Y);
 
-                var distanceTargetX = Math.Abs(targetPos.X - endTargetNodePos.X);
-                var distanceEmptyX = Math.Abs(t.X - endTargetNodePos.X);
+                var distanceTargetX = Math.Abs(dataPos.X - targetNodePos.X);
+                var distanceEmptyX = Math.Abs(t.X - targetNodePos.X);
 
                 var f = CalcFAdjusted(distanceTargetX, distanceTargetY, distanceEmptyX, distanceEmptyY);
 

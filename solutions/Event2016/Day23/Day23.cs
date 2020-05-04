@@ -3,6 +3,9 @@
     using System.Collections.Generic;
     using AdventOfCode.Solutions.Common;
 
+    /// <summary>
+    /// Incapsulates logic for Day 23 of event.
+    /// </summary>
     public class Day23 : IAdventOfCodeDayRunner
     {
         /// <inheritdoc/>

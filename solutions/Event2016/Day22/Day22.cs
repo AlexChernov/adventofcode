@@ -6,6 +6,9 @@
     using System.Text.RegularExpressions;
     using AdventOfCode.Solutions.Common;
 
+    /// <summary>
+    /// Incapsulates logic for Day 22 of event.
+    /// </summary>
     public partial class Day22 : IAdventOfCodeDayRunner
     {
         /// <inheritdoc/>
@@ -91,7 +94,7 @@
                 yield break;
             }
 
-            var path = new LinkedList<Day22.GraphNode>();
+            var path = new LinkedList<GraphNode>();
             while (pathNode != null)
             {
                 path.AddFirst(pathNode);

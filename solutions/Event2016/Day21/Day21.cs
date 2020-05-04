@@ -6,7 +6,10 @@
     using System.Text.RegularExpressions;
     using AdventOfCode.Solutions.Common;
 
-    public partial class Day21 : IAdventOfCodeDayRunner
+    /// <summary>
+    /// Incapsulates logic for Day 21 of event.
+    /// </summary>
+    public class Day21 : IAdventOfCodeDayRunner
     {
         private static readonly Dictionary<int, int> DerotateOnLetterMap = new Dictionary<int, int>()
         {

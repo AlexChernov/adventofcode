@@ -3,6 +3,9 @@
     using System.Text;
     using AdventOfCode.Solutions.Common;
 
+    /// <summary>
+    /// Incapsulates the visualization logic.
+    /// </summary>
     public partial class Day22
     {
         private static string PrintState(string[,] output, X_Y emptyNodePos, string title)
@@ -72,7 +75,7 @@
                 for (int j = 0; j < calcMap.GetLength(1); ++j)
                 {
                     calcMap[i, j].OpenCount = 0;
-                    calcMap[i, j].CloseCount = 0;
+                    calcMap[i, j].ClosedCount = 0;
                 }
             }
 
@@ -81,9 +84,9 @@
                 calcMap[openNode.EmptyNodePos.X, openNode.EmptyNodePos.Y].OpenCount++;
             }
 
-            foreach (var closeNode in state.Close)
+            foreach (var closeNode in state.Closed)
             {
-                calcMap[closeNode.EmptyNodePos.X, closeNode.EmptyNodePos.Y].CloseCount++;
+                calcMap[closeNode.EmptyNodePos.X, closeNode.EmptyNodePos.Y].ClosedCount++;
             }
         }
 

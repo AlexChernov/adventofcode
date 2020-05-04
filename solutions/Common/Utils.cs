@@ -3,8 +3,17 @@
     using System;
     using System.Collections.Generic;
 
+    /// <summary>
+    /// Utils.
+    /// </summary>
     public static class Utils
     {
+        /// <summary>
+        /// Gets the index of first element greater than specified target value.
+        /// </summary>
+        /// <param name="arr">The array.</param>
+        /// <param name="target">The target value.</param>
+        /// <returns>The index of first element greater than specified target value.</returns>
         public static int IndexOfFirstGreaterValue(IList<int> arr, int target)
         {
             int start = 0, end = arr.Count - 1;
@@ -31,7 +40,15 @@
             return ans;
         }
 
-        public static T[] SubArray<T>(this T[] data, int index, int length)
+        /// <summary>
+        /// Gets the subarray of specified array starting from specified index with specified length.
+        /// </summary>
+        /// <typeparam name="T">The type of data.</typeparam>
+        /// <param name="data">The array.</param>
+        /// <param name="index">The starting index.</param>
+        /// <param name="length">The length of subarray.</param>
+        /// <returns>The subarray.</returns>
+        public static T[] Subarray<T>(this T[] data, int index, int length)
         {
             T[] result = new T[length];
             Array.Copy(data, index, result, 0, length);
@@ -39,16 +56,36 @@
             return result;
         }
 
-        public static bool InBound<T>(this T[,] nodes, X_Y xy)
+        /// <summary>
+        /// Determines whether an positin in bound of data.
+        /// </summary>
+        /// <typeparam name="T">The type of data.</typeparam>
+        /// <param name="data">The 2D array of data.</param>
+        /// <param name="xy">The instance of <see cref="X_Y"/> with position to check.</param>
+        /// <returns>True if the positon in bound; otherwise False is returned.</returns>
+        public static bool InBound<T>(this T[,] data, X_Y xy)
         {
-            return xy.X >= 0 && xy.X < nodes.GetLength(0) && xy.Y >= 0 && xy.Y < nodes.GetLength(1);
+            return xy.X >= 0 && xy.X < data.GetLength(0) && xy.Y >= 0 && xy.Y < data.GetLength(1);
         }
 
-        public static bool InBound<T>(this T[,] nodes, int x, int y)
+        /// <summary>
+        /// Determines whether an positin in bound of data.
+        /// </summary>
+        /// <typeparam name="T">The type of data.</typeparam>
+        /// <param name="data">The 2D array of data.</param>
+        /// <param name="x">The x coordinate of position.</param>
+        /// <param name="y">The y coordinate of position.</param>
+        /// <returns>True if the positon in bound; otherwise False is returned.</returns>
+        public static bool InBound<T>(this T[,] data, int x, int y)
         {
-            return x >= 0 && x < nodes.GetLength(0) && y >= 0 && y < nodes.GetLength(1);
+            return x >= 0 && x < data.GetLength(0) && y >= 0 && y < data.GetLength(1);
         }
 
+        /// <summary>
+        /// Calculates factorial of specified number.
+        /// </summary>
+        /// <param name="n">The number.</param>
+        /// <returns>The factorial of specified number.</returns>
         public static long Factorial(long n)
         {
             long ret = 1;
