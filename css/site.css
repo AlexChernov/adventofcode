@@ -1,5 +1,17 @@
 ﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+textarea#monospace-textarea:first-line {
+    font-weight: bold;
+}
+
+textarea#monospace-textarea {
+    line-height: 110%;
+}
+
+.input-group.mb-3.display-block {
+    display: block;
+}
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
