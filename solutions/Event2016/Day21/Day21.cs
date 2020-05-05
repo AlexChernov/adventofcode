@@ -284,12 +284,7 @@
 
         private static int CalcNextIndex(int index, int shift, int from, int len)
         {
-            return from + Mod(index - from + shift, len);
-        }
-
-        private static int Mod(int x, int m)
-        {
-            return ((x % m) + m) % m;
+            return from + Utils.Mod(index - from + shift, len);
         }
 
         private static void RotateLeft(State state, int x)

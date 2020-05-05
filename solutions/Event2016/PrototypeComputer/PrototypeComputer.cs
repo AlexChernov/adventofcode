@@ -71,6 +71,12 @@
                     instruction.Method = ToggleMethod(instruction.Method);
                 }
             },
+            {
+                "out", (state, args) =>
+                {
+                    state.Out.Add(GetValue(args[0], state));
+                }
+            },
         };
 
         /// <summary>
@@ -86,6 +92,8 @@
                 CurrentIndex = 0,
                 Registers = InitRegisters(),
                 Instructions = this.InitCommands(lines),
+                Out = new LinkedList<int>(),
+                CanRun = true,
             };
         }
 
@@ -108,17 +116,38 @@
         /// Runs instructions.
         /// </summary>
         /// <returns>The last state of registers.</returns>
-        public Dictionary<string, long> Run()
+        public PrototypeComputerState Run()
         {
-            while (this.State.CurrentIndex < this.State.Instructions.Count)
+            while (this.State.CanRun)
             {
-                var instruction = this.State.Instructions[this.State.CurrentIndex];
-                MethodsMapping[instruction.Method](this.State, instruction.Args);
-
-                ++this.State.CurrentIndex;
+                this.RunNext();
             }
 
-            return this.State.Registers;
+            return this.State;
+        }
+
+        /// <summary>
+        /// Runs instructions.
+        /// </summary>
+        /// <returns>The last state of registers.</returns>
+        public PrototypeComputerState RunNext()
+        {
+            if (!this.State.CanRun)
+            {
+                return this.State;
+            }
+
+            var instruction = this.State.Instructions[this.State.CurrentIndex];
+            MethodsMapping[instruction.Method](this.State, instruction.Args);
+
+            ++this.State.CurrentIndex;
+
+            if (this.State.CurrentIndex < 0 || this.State.CurrentIndex >= this.State.Instructions.Count)
+            {
+                this.State.CanRun = false;
+            }
+
+            return this.State;
         }
 
         private static string ToggleMethod(string method)
@@ -130,6 +159,7 @@
                     return "dec";
                 case "dec":
                 case "tgl":
+                case "out":
                     return "inc";
 
                 // jnz becomes cpy, and all other two-instructions become jnz.

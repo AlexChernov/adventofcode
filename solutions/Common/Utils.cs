@@ -98,5 +98,44 @@
 
             return ret;
         }
+
+        /// <summary>
+        /// Calculates modulo of value by base.
+        /// </summary>
+        /// <param name="value">The value</param>
+        /// <param name="base">The base.</param>
+        /// <returns>The modulo.</returns>
+        public static int Mod(int value, int @base)
+        {
+            return ((value % @base) + @base) % @base;
+        }
+
+        /// <summary>
+        /// Calculates GCD.
+        /// </summary>
+        /// <param name="first">First value.</param>
+        /// <param name="second">Second value.</param>
+        /// <returns>The GCD of two values.</returns>
+        public static int GCD(int first, int second)
+        {
+            if (first == 0)
+            {
+                return second;
+            }
+
+            return GCD(second % first, first);
+        }
+
+        /// <summary>
+        /// Calculates LCM.
+        /// </summary>
+        /// <param name="a">First value.</param>
+        /// <param name="b">Second value.</param>
+        /// <returns>The LCM of two values.</returns>
+        public static int LCM(int a, int b)
+        {
+            return (a * b) / GCD(a, b);
+        }
+
     }
 }
