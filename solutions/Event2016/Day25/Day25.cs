@@ -105,7 +105,7 @@
         private void UpdatePicture(string[] picture, string[] train, string[] signal, int i)
         {
             var signalIndex = 0;
-            var trainTopIndex = 21;
+            var trainTopIndex = 20;
             picture[signalIndex] = signal[Utils.Mod(i, signal.Length)];
             picture[trainTopIndex] = train[Utils.Mod(i, train.Length / 2) * 2];
             picture[trainTopIndex + 1] = train[(Utils.Mod(i, train.Length / 2) * 2) + 1];

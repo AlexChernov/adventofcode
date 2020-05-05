@@ -1,21 +1,22 @@
 ﻿@namespace AdventOfCode
+@inject HttpClient Http
 
 <h1>@Title</h1>
 
-<div class="input-group mb-3">
+<div class="input-group mb-3 display-block">
     <button class="btn btn-primary" @onclick="Run1">Run task 1</button>
     <button class="btn btn-primary" @onclick="Run2">Run task 2</button>
     <button class="btn btn-secondary" @onclick="Toggle">@inputToggleText</button>
 </div>
 
-<div class="input-group mb-3">
+<div class="input-group mb-3 display-block">
     <div class="form-check">
         <input type="checkbox" class="form-check-input" id="exampleCheck1" @bind="@shouldVisualize">
         <label class="form-check-label" for="exampleCheck1">Visualization</label>
     </div>
 </div>
 
-<div class="input-group mb-3">
+<div class="input-group mb-3 display-block">
     <BSCollapse IsOpen="@OutputIsOpen">
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Output</label>
@@ -39,12 +40,42 @@
     [Parameter]
     public AdventOfCode.Solutions.Common.IAdventOfCodeDayRunner AdventOfCodeDayRunner { get; set; }
 
+    [Parameter]
+    public string InputUri { get; set; }
+
     private string result { get; set; }
     private bool shouldVisualize = false;
     private string input = "";
     private string inputToggleText = "Change input";
     private bool InputIsOpen = false;
     private bool OutputIsOpen = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var useDefaultInputs = false;
+        var response = string.Empty;
+        var badResponse = "Puzzle inputs differ by user.  Please log in to get your puzzle input.";
+        try
+        {
+            response = await Http.GetStringAsync("https://adventofcode.com/" + InputUri);
+        }
+        catch
+        {
+            useDefaultInputs = true;
+        }
+        if (useDefaultInputs || string.IsNullOrWhiteSpace(response) || response == badResponse)
+        {
+            try
+            {
+                response = await Http.GetStringAsync("default-inputs/" + InputUri + ".txt");
+            }
+            catch
+            {
+                response = string.Empty;
+            }
+        }
+        input = response;
+    }
 
     private async Task Run1()
     {
