@@ -24,8 +24,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Event2015\Event2015.csproj" />
-    <ProjectReference Include="..\solutions\Event2016\Event2016.csproj" />
+    <ProjectReference Include="..\Solutions\Event2015\Event2015.csproj" />
+    <ProjectReference Include="..\Solutions\Event2016\Event2016.csproj" />
   </ItemGroup>
 
   <ItemGroup>

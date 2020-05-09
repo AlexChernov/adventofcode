@@ -9,6 +9,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solutions", "Solutions", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Event2016", "Solutions\Event2016\Event2016.csproj", "{793D7886-C5CC-4689-9142-E20D0EA5AA00}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event2015", "Solutions\Event2015\Event2015.csproj", "{A067E09A-3DE9-4CA8-B0A9-BE57FB1AB350}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleRunner", "ConsoleRunner\ConsoleRunner.csproj", "{15A4B7C5-8EF4-456A-9E8E-0A45B5D358D1}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Common", "Solutions\Common\Common.csproj", "{CC80BBE6-7D92-4BEE-99BB-01003BA80F81}"
@@ -19,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Event2015", "Event2015\Event2015.csproj", "{A067E09A-3DE9-4CA8-B0A9-BE57FB1AB350}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

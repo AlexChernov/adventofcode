@@ -2,8 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
-    <RootNamespace>AdventOfCode.Solutions.Event2016</RootNamespace>
     <AssemblyName>AdventOfCode.Solutions.Event2016</AssemblyName>
+    <RootNamespace>AdventOfCode.Solutions.Event2016</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
