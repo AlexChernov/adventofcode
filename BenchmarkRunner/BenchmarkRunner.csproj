@@ -24,7 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\solutions\Event2016\Event2016.csproj" />
+    <ProjectReference Include="..\Solutions\Event2016\Event2016.csproj" />
   </ItemGroup>
 
 </Project>
