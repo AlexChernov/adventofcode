@@ -1,4 +1,4 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+﻿@import url('open-iconic/font/css/compiled-icons.min.css');
 
 textarea#monospace-textarea:first-line {
     font-weight: bold;
@@ -198,4 +198,8 @@ app {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+}
+
+.oi.oi-post {
+    padding-left: 1rem;
 }

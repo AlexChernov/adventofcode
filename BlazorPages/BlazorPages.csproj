@@ -6,7 +6,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="compilerconfig.json" />
+    <Content Remove="wwwroot\css\open-iconic\font\css\compiled-icons.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="..\.editorconfig" Link=".editorconfig" />
+    <None Include="compilerconfig.json" />
+    <None Include="wwwroot\css\open-iconic\font\css\compiled-icons.scss" />
   </ItemGroup>
 
   <ItemGroup>

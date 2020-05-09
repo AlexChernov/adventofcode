@@ -1,0 +1,9 @@
+﻿@import "open-iconic-bootstrap.min";
+
+.nav-link .oi-chevron-toggable {
+    @extend .oi-chevron-top;
+}
+
+.nav-link.collapsed .oi-chevron-toggable {
+    @extend .oi-chevron-bottom;
+}
