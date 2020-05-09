@@ -1,4 +1,4 @@
-﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+﻿@import url('open-iconic/font/css/compiled-icons.min.css');
 
 textarea#monospace-textarea:first-line {
     font-weight: bold;
@@ -81,14 +81,6 @@ app {
         font-size: 0.9rem;
         padding-bottom: 0.5rem;
     }
-
-        .sidebar .nav-item:first-of-type {
-            padding-top: 1rem;
-        }
-
-        .sidebar .nav-item:last-of-type {
-            padding-bottom: 1rem;
-        }
 
         .sidebar .nav-item a {
             color: #d7d7d7;
@@ -194,8 +186,12 @@ app {
         display: none;
     }
 
-    .sidebar .collapse {
+    .sidebar .collapse.mainnav {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
+}
+
+.panel-collapse {
+    background-color: rgba(255, 255, 255, 0.1);
 }
