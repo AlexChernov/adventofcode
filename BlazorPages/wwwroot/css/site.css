@@ -82,14 +82,6 @@ app {
         padding-bottom: 0.5rem;
     }
 
-        .sidebar .nav-item:first-of-type {
-            padding-top: 1rem;
-        }
-
-        .sidebar .nav-item:last-of-type {
-            padding-bottom: 1rem;
-        }
-
         .sidebar .nav-item a {
             color: #d7d7d7;
             border-radius: 4px;
@@ -200,6 +192,6 @@ app {
     }
 }
 
-.oi.oi-post {
-    padding-left: 1rem;
+.panel-collapse {
+    background-color: rgba(255, 255, 255, 0.1);
 }

@@ -714,3 +714,6 @@
 
 .oi-zoom-out:before {
   content: '\e0de'; }
+
+.oi.oi-post {
+  padding-left: 1rem; }

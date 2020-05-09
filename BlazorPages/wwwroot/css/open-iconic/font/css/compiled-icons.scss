@@ -1,5 +1,9 @@
 ﻿@import "open-iconic-bootstrap.min";
 
+.oi.oi-post {
+    padding-left: 1rem;
+}
+
 .nav-link .oi-chevron-toggable {
     @extend .oi-chevron-top;
 }
