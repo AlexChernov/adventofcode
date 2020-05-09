@@ -79,6 +79,7 @@
                     ++skip;
                     continue;
                 }
+
                 skip = 0;
 
                 drawing.Value.Update(node);
