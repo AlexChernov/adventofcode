@@ -17,19 +17,19 @@
 </div>
 
 <div class="input-group mb-3 display-block">
-    <BSCollapse IsOpen="@OutputIsOpen">
+    <div class="@OutputClass">
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Output</label>
             <textarea class="form-control" id="monospace-textarea" rows="3" @bind="result"></textarea>
         </div>
-    </BSCollapse>
+    </div>
 
-    <BSCollapse IsOpen="@InputIsOpen">
+    <div class="@InputClass">
         <div class="form-group">
             <label for="exampleFormControlTextarea1">Input</label>
             <textarea class="form-control" id="monospace-textarea" rows="3" @bind="input"></textarea>
         </div>
-    </BSCollapse>
+    </div>
 </div>
 
 
@@ -43,12 +43,18 @@
     [Parameter]
     public string InputUri { get; set; }
 
+    private static string CollapseOpenClass = "collapse show";
+    private static string CollapseClosedClass = "collapse";
+    
     private string result { get; set; }
     private bool shouldVisualize = false;
     private string input = "";
     private string inputToggleText = "Change input";
+
     private bool InputIsOpen = false;
     private bool OutputIsOpen = true;
+    private string InputClass => InputIsOpen ? CollapseOpenClass : CollapseClosedClass;
+    private string OutputClass => OutputIsOpen ? CollapseOpenClass : CollapseClosedClass;
 
     protected override async Task OnInitializedAsync()
     {
@@ -103,6 +109,7 @@
         inputToggleText = InputIsOpen ? "Change input" : "Hide input";
         OutputIsOpen = InputIsOpen;
         InputIsOpen = !InputIsOpen;
+
         StateHasChanged();
     }
 }

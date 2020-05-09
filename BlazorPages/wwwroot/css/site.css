@@ -194,7 +194,7 @@ app {
         display: none;
     }
 
-    .sidebar .collapse {
+    .sidebar .collapse.mainnav {
         /* Never collapse the sidebar for wide screens */
         display: block;
     }
