@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>AdventOfCode.Solutions.Event2015</AssemblyName>
+    <RootNamespace>AdventOfCode.Solutions.Event2015</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <ProjectReference Include="..\solutions\Common\Common.csproj" />
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="Day2\" />
+  </ItemGroup>
+
+</Project>
