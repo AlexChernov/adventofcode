@@ -63,7 +63,7 @@
             var drawing = new Lazy<Drawing>(() => new Drawing(10));
 
             var skip = 0;
-            var skipNumber = 50;
+            var skipNumber = 250;
 
             foreach (var node in this.SolveTSP2(map))
             {

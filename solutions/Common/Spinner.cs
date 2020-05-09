@@ -18,14 +18,14 @@
         public void Turn()
         {
             this.counter++;
-            switch (this.counter % 4)
+            switch (this.counter % 3)
             {
                 case 0:
                     this.State = "/";
                     this.counter = 0;
                     break;
                 case 1:
-                    this.State = "-";
+                    this.State = "—";
                     break;
                 case 2:
                     this.State = "\\";
