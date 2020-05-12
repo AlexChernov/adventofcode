@@ -65,7 +65,7 @@
             var skip = 0;
             var skipNumber = 250;
 
-            foreach (var node in this.SolveTSP2(map))
+            foreach (var node in this.SolveTSP(map))
             {
                 path = node;
 
@@ -98,25 +98,14 @@
             }
         }
 
-        private int SolveTSP(Dictionary<string, Dictionary<string, int>> graph)
-        {
-            var map = this.InitTSPMap(graph);
-            bool[] visited = new bool[map.GetLength(0)];
-            visited[0] = true;
-
-            var ans = this.TSP(map, visited, 0, map.GetLength(0), 1, 0, 0);
-
-            return ans;
-        }
-
-        private IEnumerable<GraphNode> SolveTSP2(Dictionary<string, Dictionary<string, int>> graph)
+        private IEnumerable<GraphNode> SolveTSP(Dictionary<string, Dictionary<string, int>> graph)
         {
             var path = new GraphNode
             {
                 Cost = 0,
             };
 
-            foreach (var node in this.TSP2(graph, new HashSet<string>(), null, graph.Count, 0, path))
+            foreach (var node in this.TSP(graph, new HashSet<string>(), null, graph.Count, 0, path))
             {
                 yield return node;
             }
@@ -124,7 +113,7 @@
             yield return path;
         }
 
-        private IEnumerable<GraphNode> TSP2(Dictionary<string, Dictionary<string, int>> graph, HashSet<string> visited, GraphNode currPos, int n, int count, GraphNode ans)
+        private IEnumerable<GraphNode> TSP(Dictionary<string, Dictionary<string, int>> graph, HashSet<string> visited, GraphNode currPos, int n, int count, GraphNode ans)
         {
             if (count == n)
             {
@@ -149,7 +138,7 @@
                         Cost = 0,
                         CurrentPos = nextLocation,
                     };
-                    foreach (var innerNodes in this.TSP2(graph, visited, next, n, count + 1, ans))
+                    foreach (var innerNodes in this.TSP(graph, visited, next, n, count + 1, ans))
                     {
                         yield return innerNodes;
                     }
@@ -173,7 +162,7 @@
 
                         yield return next;
 
-                        foreach (var innerNodes in this.TSP2(graph, visited, next, n, count + 1, ans))
+                        foreach (var innerNodes in this.TSP(graph, visited, next, n, count + 1, ans))
                         {
                             yield return innerNodes;
                         }
@@ -182,27 +171,6 @@
                     }
                 }
             }
-        }
-
-        private int TSP(int[,] graph, bool[] visited, int currPos, int n, int count, int cost, int ans)
-        {
-            if (count == n && graph[currPos, 0] >= 0)
-            {
-                ans = Math.Max(ans, cost + graph[currPos, 0]);
-                return ans;
-            }
-
-            for (int i = 0; i < n; i++)
-            {
-                if (visited[i] == false && graph[currPos, i] >= 0)
-                {
-                    visited[i] = true;
-                    ans = this.TSP(graph, visited, i, n, count + 1, cost + graph[currPos, i], ans);
-                    visited[i] = false;
-                }
-            }
-
-            return ans;
         }
 
         private IEnumerable<GraphNode> SolveGraph(Dictionary<string, Dictionary<string, int>> graph)
@@ -317,46 +285,6 @@
             }
 
             return distances;
-        }
-
-        private int[,] InitTSPMap(Dictionary<string, Dictionary<string, int>> distances)
-        {
-            var len = distances.Count + 1;
-
-            var map = new int[len, len];
-
-            for (var i = 0; i < len; ++i)
-            {
-                for (var j = 0; j < len; ++j)
-                {
-                    map[i, j] = -1;
-                }
-            }
-
-            var targetMapping = new Dictionary<string, int>();
-            var currentIndex = 1;
-            foreach (var key in distances.Keys)
-            {
-                targetMapping.Add(key, currentIndex);
-                ++currentIndex;
-            }
-
-            foreach (var from in distances)
-            {
-                var fromIndex = targetMapping[from.Key];
-                foreach (var kvp in from.Value)
-                {
-                    map[fromIndex, targetMapping[kvp.Key]] = kvp.Value;
-                }
-            }
-
-            for (var i = 0; i < len; ++i)
-            {
-                map[0, i] = 0;
-                map[i, 0] = 0;
-            }
-
-            return map;
         }
 
         private void PushPair(Dictionary<string, Dictionary<string, int>> map, string from, string to, int distance)

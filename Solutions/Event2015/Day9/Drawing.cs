@@ -1,21 +1,31 @@
 ﻿namespace AdventOfCode.Solutions.Event2015.Day9
 {
-    using System;
     using System.Collections.Generic;
     using System.Text;
 
-    class Drawing
+    /// <summary>
+    /// Incapsulates drawing logic.
+    /// </summary>
+    public class Drawing
     {
-        private int queueSize;
-        private Queue<GraphNode> queue;
+        private readonly int queueSize;
+        private readonly Queue<GraphNode> queue;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Drawing"/> class.
+        /// </summary>
+        /// <param name="queueSize">The size of drawing queue.</param>
         public Drawing(int queueSize)
         {
             this.queueSize = queueSize;
             this.queue = new Queue<GraphNode>(this.queueSize + 1);
         }
 
-        internal void Update(GraphNode node)
+        /// <summary>
+        /// Updates drawing state.
+        /// </summary>
+        /// <param name="node">The graph node to add.</param>
+        public void Update(GraphNode node)
         {
             this.queue.Enqueue(node);
             if (this.queue.Count > this.queueSize)
@@ -24,7 +34,11 @@
             }
         }
 
-        internal string GetStateStr()
+        /// <summary>
+        /// Gets current drawing state.
+        /// </summary>
+        /// <returns>The string of current drawing state.</returns>
+        public string GetStateStr()
         {
             var outstr = new StringBuilder();
             foreach (var p in this.queue)
