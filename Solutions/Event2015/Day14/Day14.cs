@@ -31,7 +31,7 @@
         {
             var deers = this.InitDeers(input);
 
-            var state = new State(deers);
+            var state = new RaceState(deers);
             state.NextState(1);
 
             var maxTime = 2503;

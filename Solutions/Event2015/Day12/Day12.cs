@@ -106,7 +106,6 @@
                 }
             }
 
-
             yield return currentContext.Sum.ToString();
         }
     }

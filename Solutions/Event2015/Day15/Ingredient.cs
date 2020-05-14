@@ -1,12 +1,38 @@
 ﻿namespace AdventOfCode.Solutions.Event2015.Day15
 {
+    /// <summary>
+    /// Incapsulates the logic of ingredient.
+    /// </summary>
     internal class Ingredient
     {
-        public string name { get; internal set; }
-        public int capacity { get; internal set; }
-        public int durability { get; internal set; }
-        public int flavor { get; internal set; }
-        public int texture { get; internal set; }
-        public int calories { get; internal set; }
+        /// <summary>
+        /// Gets or sets name of ingredient.
+        /// </summary>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the capacity of ingredient.
+        /// </summary>
+        public int Capacity { get; set; }
+
+        /// <summary>
+        /// Gets or sets the durability of ingredient.
+        /// </summary>
+        public int Durability { get; set; }
+
+        /// <summary>
+        /// Gets or sets the flavor of ingredient.
+        /// </summary>
+        public int Flavor { get; set; }
+
+        /// <summary>
+        /// Gets or sets the texture of ingredient.
+        /// </summary>
+        public int Texture { get; set; }
+
+        /// <summary>
+        /// Gets or sets the calories of ingredient.
+        /// </summary>
+        public int Calories { get; set; }
     }
 }

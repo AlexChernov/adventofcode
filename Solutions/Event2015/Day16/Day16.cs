@@ -21,31 +21,31 @@
 
             var target = new Aunt()
             {
-                children = 3,
-                cats = 7,
-                samoyeds = 2,
-                pomeranians = 3,
-                akitas = 0,
-                vizslas = 0,
-                goldfish = 5,
-                trees = 3,
-                cars = 2,
-                perfumes = 1,
+                Children = 3,
+                Cats = 7,
+                Samoyeds = 2,
+                Pomeranians = 3,
+                Akitas = 0,
+                Vizslas = 0,
+                Goldfish = 5,
+                Trees = 3,
+                Cars = 2,
+                Perfumes = 1,
             };
 
             aunts = aunts.Where(aunt =>
-                (!aunt.children.HasValue || aunt.children == target.children) &&
-                (!aunt.cats.HasValue || aunt.cats == target.cats) &&
-                (!aunt.samoyeds.HasValue || aunt.samoyeds == target.samoyeds) &&
-                (!aunt.pomeranians.HasValue || aunt.pomeranians == target.pomeranians) &&
-                (!aunt.akitas.HasValue || aunt.akitas == target.akitas) &&
-                (!aunt.vizslas.HasValue || aunt.vizslas == target.vizslas) &&
-                (!aunt.goldfish.HasValue || aunt.goldfish == target.goldfish) &&
-                (!aunt.trees.HasValue || aunt.trees == target.trees) &&
-                (!aunt.cars.HasValue || aunt.cars == target.cars) &&
-                (!aunt.perfumes.HasValue || aunt.perfumes == target.perfumes));
+                (!aunt.Children.HasValue || aunt.Children == target.Children) &&
+                (!aunt.Cats.HasValue || aunt.Cats == target.Cats) &&
+                (!aunt.Samoyeds.HasValue || aunt.Samoyeds == target.Samoyeds) &&
+                (!aunt.Pomeranians.HasValue || aunt.Pomeranians == target.Pomeranians) &&
+                (!aunt.Akitas.HasValue || aunt.Akitas == target.Akitas) &&
+                (!aunt.Vizslas.HasValue || aunt.Vizslas == target.Vizslas) &&
+                (!aunt.Goldfish.HasValue || aunt.Goldfish == target.Goldfish) &&
+                (!aunt.Trees.HasValue || aunt.Trees == target.Trees) &&
+                (!aunt.Cars.HasValue || aunt.Cars == target.Cars) &&
+                (!aunt.Perfumes.HasValue || aunt.Perfumes == target.Perfumes));
 
-            yield return aunts.First().name.ToString();
+            yield return aunts.First().Name.ToString();
         }
 
         /// <inheritdoc/>
@@ -55,31 +55,31 @@
 
             var target = new Aunt()
             {
-                children = 3,
-                cats = 7,
-                samoyeds = 2,
-                pomeranians = 3,
-                akitas = 0,
-                vizslas = 0,
-                goldfish = 5,
-                trees = 3,
-                cars = 2,
-                perfumes = 1,
+                Children = 3,
+                Cats = 7,
+                Samoyeds = 2,
+                Pomeranians = 3,
+                Akitas = 0,
+                Vizslas = 0,
+                Goldfish = 5,
+                Trees = 3,
+                Cars = 2,
+                Perfumes = 1,
             };
 
             aunts = aunts.Where(aunt =>
-                (!aunt.cats.HasValue || aunt.cats.Value > target.cats.Value) &&
-                (!aunt.trees.HasValue || aunt.trees.Value > target.trees.Value) &&
-                (!aunt.pomeranians.HasValue || aunt.pomeranians < target.pomeranians) &&
-                (!aunt.goldfish.HasValue || aunt.goldfish < target.goldfish) &&
-                (!aunt.children.HasValue || aunt.children == target.children) &&
-                (!aunt.samoyeds.HasValue || aunt.samoyeds == target.samoyeds) &&
-                (!aunt.akitas.HasValue || aunt.akitas == target.akitas) &&
-                (!aunt.vizslas.HasValue || aunt.vizslas == target.vizslas) &&
-                (!aunt.cars.HasValue || aunt.cars == target.cars) &&
-                (!aunt.perfumes.HasValue || aunt.perfumes == target.perfumes));
+                (!aunt.Cats.HasValue || aunt.Cats.Value > target.Cats.Value) &&
+                (!aunt.Trees.HasValue || aunt.Trees.Value > target.Trees.Value) &&
+                (!aunt.Pomeranians.HasValue || aunt.Pomeranians < target.Pomeranians) &&
+                (!aunt.Goldfish.HasValue || aunt.Goldfish < target.Goldfish) &&
+                (!aunt.Children.HasValue || aunt.Children == target.Children) &&
+                (!aunt.Samoyeds.HasValue || aunt.Samoyeds == target.Samoyeds) &&
+                (!aunt.Akitas.HasValue || aunt.Akitas == target.Akitas) &&
+                (!aunt.Vizslas.HasValue || aunt.Vizslas == target.Vizslas) &&
+                (!aunt.Cars.HasValue || aunt.Cars == target.Cars) &&
+                (!aunt.Perfumes.HasValue || aunt.Perfumes == target.Perfumes));
 
-            yield return aunts.First().name.ToString();
+            yield return aunts.First().Name.ToString();
         }
 
         private List<Aunt> InitAunts(string input)
@@ -96,17 +96,17 @@
                 {
                     aunts.Add(new Aunt()
                     {
-                        name = match.Groups["name"].Value,
-                        children = match.Groups["children"].Success ? int.Parse(match.Groups["children"].Value) : default(int?),
-                        cats = match.Groups["cats"].Success ? int.Parse(match.Groups["cats"].Value) : default(int?),
-                        samoyeds = match.Groups["samoyeds"].Success ? int.Parse(match.Groups["samoyeds"].Value) : default(int?),
-                        pomeranians = match.Groups["pomeranians"].Success ? int.Parse(match.Groups["pomeranians"].Value) : default(int?),
-                        akitas = match.Groups["akitas"].Success ? int.Parse(match.Groups["akitas"].Value) : default(int?),
-                        vizslas = match.Groups["vizslas"].Success ? int.Parse(match.Groups["vizslas"].Value) : default(int?),
-                        goldfish = match.Groups["goldfish"].Success ? int.Parse(match.Groups["goldfish"].Value) : default(int?),
-                        trees = match.Groups["trees"].Success ? int.Parse(match.Groups["trees"].Value) : default(int?),
-                        cars = match.Groups["cars"].Success ? int.Parse(match.Groups["cars"].Value) : default(int?),
-                        perfumes = match.Groups["perfumes"].Success ? int.Parse(match.Groups["perfumes"].Value) : default(int?),
+                        Name = match.Groups["name"].Value,
+                        Children = match.Groups["children"].Success ? int.Parse(match.Groups["children"].Value) : default(int?),
+                        Cats = match.Groups["cats"].Success ? int.Parse(match.Groups["cats"].Value) : default(int?),
+                        Samoyeds = match.Groups["samoyeds"].Success ? int.Parse(match.Groups["samoyeds"].Value) : default(int?),
+                        Pomeranians = match.Groups["pomeranians"].Success ? int.Parse(match.Groups["pomeranians"].Value) : default(int?),
+                        Akitas = match.Groups["akitas"].Success ? int.Parse(match.Groups["akitas"].Value) : default(int?),
+                        Vizslas = match.Groups["vizslas"].Success ? int.Parse(match.Groups["vizslas"].Value) : default(int?),
+                        Goldfish = match.Groups["goldfish"].Success ? int.Parse(match.Groups["goldfish"].Value) : default(int?),
+                        Trees = match.Groups["trees"].Success ? int.Parse(match.Groups["trees"].Value) : default(int?),
+                        Cars = match.Groups["cars"].Success ? int.Parse(match.Groups["cars"].Value) : default(int?),
+                        Perfumes = match.Groups["perfumes"].Success ? int.Parse(match.Groups["perfumes"].Value) : default(int?),
                     });
                 }
             }

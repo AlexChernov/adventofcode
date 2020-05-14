@@ -2,10 +2,8 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Runtime.InteropServices;
     using System.Text.RegularExpressions;
     using AdventOfCode.Solutions.Common;
-    using Microsoft.Z3;
 
     /// <summary>
     /// Incapsulates logic of the Day 15.
@@ -57,12 +55,12 @@
 
                     ingredients.Add(new Ingredient()
                     {
-                        name = name,
-                        capacity = capacity,
-                        durability = durability,
-                        flavor = flavor,
-                        texture = texture,
-                        calories = calories,
+                        Name = name,
+                        Capacity = capacity,
+                        Durability = durability,
+                        Flavor = flavor,
+                        Texture = texture,
+                        Calories = calories,
                     });
                 }
             }
@@ -90,11 +88,11 @@
                 {
                     var ingredient = ingredients[i];
                     var amount = ingredientAmounts[i];
-                    capacity += ingredient.capacity * amount;
-                    durability += ingredient.durability * amount;
-                    flavor += ingredient.flavor * amount;
-                    texture += ingredient.texture * amount;
-                    calories += ingredient.calories * amount;
+                    capacity += ingredient.Capacity * amount;
+                    durability += ingredient.Durability * amount;
+                    flavor += ingredient.Flavor * amount;
+                    texture += ingredient.Texture * amount;
+                    calories += ingredient.Calories * amount;
                 }
 
                 capacity = Math.Max(0, capacity);

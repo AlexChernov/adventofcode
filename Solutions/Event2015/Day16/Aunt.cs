@@ -1,18 +1,63 @@
 ﻿namespace AdventOfCode.Solutions.Event2015.Day16
 {
+    /// <summary>
+    /// Incapsulates the logic of aunt.
+    /// </summary>
     internal class Aunt
     {
-        internal string name;
+        /// <summary>
+        /// Gets or sets the name.
+        /// </summary>
+        public string Name { get; set; }
 
-        public int? children { get; internal set; }
-        public int? cats { get; internal set; }
-        public int? samoyeds { get; internal set; }
-        public int? pomeranians { get; internal set; }
-        public int? akitas { get; internal set; }
-        public int? vizslas { get; internal set; }
-        public int? goldfish { get; internal set; }
-        public int? trees { get; internal set; }
-        public int? cars { get; internal set; }
-        public int? perfumes { get; internal set; }
+        /// <summary>
+        /// Gets or sets the children.
+        /// </summary>
+        public int? Children { get; set; }
+
+        /// <summary>
+        /// Gets or sets the cats.
+        /// </summary>
+        public int? Cats { get; set; }
+
+        /// <summary>
+        /// Gets or sets the samoyeds.
+        /// </summary>
+        public int? Samoyeds { get; set; }
+
+        /// <summary>
+        /// Gets or sets the pomeranians.
+        /// </summary>
+        public int? Pomeranians { get; set; }
+
+        /// <summary>
+        /// Gets or sets the akitas.
+        /// </summary>
+        public int? Akitas { get; set; }
+
+        /// <summary>
+        /// Gets or sets the vizslas.
+        /// </summary>
+        public int? Vizslas { get; set; }
+
+        /// <summary>
+        /// Gets or sets the goldfish.
+        /// </summary>
+        public int? Goldfish { get; set; }
+
+        /// <summary>
+        /// Gets or sets the trees.
+        /// </summary>
+        public int? Trees { get; set; }
+
+        /// <summary>
+        /// Gets or sets the cars.
+        /// </summary>
+        public int? Cars { get; set; }
+
+        /// <summary>
+        /// Gets or sets the perfumes.
+        /// </summary>
+        public int? Perfumes { get; set; }
     }
 }
