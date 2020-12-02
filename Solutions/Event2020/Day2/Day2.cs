@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Solutions.Event2020.Day1
+﻿namespace AdventOfCode.Solutions.Event2020.Day2
 {
     using System;
     using System.Collections.Generic;
@@ -8,7 +8,7 @@
     /// <summary>
     /// Incapsulates logic for Day 19 of event.
     /// </summary>
-    public class Day1 : IAdventOfCodeDayRunner
+    public class Day2 : IAdventOfCodeDayRunner
     {
 
         /// <inheritdoc/>

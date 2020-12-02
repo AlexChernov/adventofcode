@@ -7,7 +7,7 @@
 
     public class Day8 : IAdventOfCodeDayRunner
     {
-        public bool HaveVisualization() => false;
+        public bool HasVisualization() => false;
 
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {

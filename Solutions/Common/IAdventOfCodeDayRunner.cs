@@ -11,7 +11,7 @@
         /// Determines.
         /// </summary>
         /// <returns>True if the runner has visualization; otherwise False is returned.</returns>
-        bool HaveVisualization();
+        bool HasVisualization();
 
         /// <summary>
         /// Runs first task.

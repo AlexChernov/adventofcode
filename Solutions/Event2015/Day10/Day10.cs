@@ -11,7 +11,7 @@
     public class Day10 : IAdventOfCodeDayRunner
     {
         /// <inheritdoc/>
-        public bool HaveVisualization() => false;
+        public bool HasVisualization() => false;
 
         /// <inheritdoc/>
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
