@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Text.RegularExpressions;
     using AdventOfCode.Solutions.Common;
 
     /// <summary>
@@ -10,55 +11,69 @@
     /// </summary>
     public class Day2 : IAdventOfCodeDayRunner
     {
-
         /// <inheritdoc/>
         public bool HasVisualization() => false;
 
         /// <inheritdoc/>
         public IEnumerable<string> RunTask1(string input, bool shouldVisualise)
         {
-            var values = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Select(v => int.Parse(v)).OrderBy(v => v).ToArray();
+            var values = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
-            if (FindPair(values, 2020, out var mult))
-            {
-                yield return mult.ToString();
-            }
-        }
+            var regex = new Regex(@"(?<from>\d+)-(?<to>\d+) (?<target>\w): (?<password>\w+)");
 
-        private bool FindPair(int[] values, int target, out int mult)
-        {
-            int highIndex = values.Length - 1;
-            for (var lowIndex = 0; lowIndex < values.Length; ++lowIndex)
+            var count = 0;
+            foreach (var value in values)
             {
-                var low = values[lowIndex];
-                while (highIndex > 0 && values[highIndex] + low > target)
+                var match = regex.Match(value);
+
+                var from = int.Parse(match.Groups["from"].Value);
+                var to = int.Parse(match.Groups["to"].Value);
+                var target = match.Groups["target"].Value.Single();
+                var password = match.Groups["password"].Value;
+
+                var entryCount = 0;
+
+                foreach (var ch in password)
                 {
-                    --highIndex;
+                    if (ch == target)
+                    {
+                        ++entryCount;
+                    }
                 }
 
-                if (values[highIndex] + low == target)
+                if (from <= entryCount && entryCount <= to)
                 {
-                    mult = values[highIndex] * low;
-                    return true;
+                    ++count;
                 }
             }
 
-            mult = 0;
-            return false;
+            yield return count.ToString();
         }
 
         /// <inheritdoc/>
         public IEnumerable<string> RunTask2(string input, bool shouldVisualise)
         {
-            var values = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Select(v => int.Parse(v)).OrderBy(v => v).ToArray();
+            var values = input.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
-            foreach (var first in values)
+            var regex = new Regex(@"(?<from>\d+)-(?<to>\d+) (?<target>\w): (?<password>\w+)");
+
+            var count = 0;
+            foreach (var value in values)
             {
-                if (FindPair(values, 2020-first, out var mult))
+                var match = regex.Match(value);
+
+                var from = int.Parse(match.Groups["from"].Value);
+                var to = int.Parse(match.Groups["to"].Value);
+                var target = match.Groups["target"].Value.Single();
+                var password = match.Groups["password"].Value;
+
+                if ((password[from - 1] == target) ^ (password[to - 1] == target))
                 {
-                    yield return (mult * first).ToString();
+                    ++count;
                 }
             }
+
+            yield return count.ToString();
         }
     }
 }

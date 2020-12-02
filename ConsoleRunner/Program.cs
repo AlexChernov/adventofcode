@@ -2,7 +2,7 @@
 {
     using System;
     using System.Threading;
-    using AdventOfCode.Solutions.Event2020.Day1;
+    using AdventOfCode.Solutions.Event2020.Day2;
 
     /// <summary>
     /// The program.
@@ -24,7 +24,7 @@
              * var skipNumber = 50;
              */
 
-            foreach (var state in new Day1().RunTask2(text, true))
+            foreach (var state in new Day2().RunTask2(text, true))
             {
                 // if (skip < skipNumber)
                 // {
