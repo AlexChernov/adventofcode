@@ -23,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Solutions\Event2016\Event2016.csproj" />
+    <ProjectReference Include="..\Solutions\Event2020\Event2020.csproj" />
   </ItemGroup>
 
 </Project>
