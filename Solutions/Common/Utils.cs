@@ -116,7 +116,7 @@
         /// <param name="first">First value.</param>
         /// <param name="second">Second value.</param>
         /// <returns>The GCD of two values.</returns>
-        public static int GCD(int first, int second)
+        public static long GCD(long first, long second)
         {
             if (first == 0)
             {
@@ -132,7 +132,7 @@
         /// <param name="a">First value.</param>
         /// <param name="b">Second value.</param>
         /// <returns>The LCM of two values.</returns>
-        public static int LCM(int a, int b)
+        public static long LCM(long a, long b)
         {
             return (a * b) / GCD(a, b);
         }
