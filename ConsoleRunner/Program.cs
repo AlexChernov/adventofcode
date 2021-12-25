@@ -2,12 +2,7 @@
 {
     using System;
     using System.Threading;
-    using AdventOfCode.Solutions.Event2020.Day10;
-    using AdventOfCode.Solutions.Event2020.Day11;
-    using AdventOfCode.Solutions.Event2020.Day12;
-    using AdventOfCode.Solutions.Event2020.Day13;
-    using AdventOfCode.Solutions.Event2020.Day8;
-    using AdventOfCode.Solutions.Event2020.Day9;
+    using AdventOfCode.Solutions.Event2021;
 
     /// <summary>
     /// The program.
@@ -29,7 +24,8 @@
              * var skipNumber = 50;
              */
 
-            foreach (var state in new Day13().RunTask2(text, true))
+            var i = 0;
+            foreach (var state in new Day25().RunTask1(text, false))
             {
                 // if (skip < skipNumber)
                 // {
@@ -37,9 +33,9 @@
                 //     continue;
                 // }
                 // skip = 0;
-                //Console.SetCursorPosition(0, 0);
+                Console.SetCursorPosition(0, 0);
                 Console.WriteLine(state);
-                Thread.Sleep(20);
+                Thread.Sleep(10);
             }
         }
     }
