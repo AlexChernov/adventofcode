@@ -4,4 +4,3 @@
 Solutions for adventofcode.com
 
 https://alexchernov.github.io/adventofcode/
-
