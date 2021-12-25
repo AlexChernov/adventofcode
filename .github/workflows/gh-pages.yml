@@ -30,7 +30,6 @@ jobs:
     - name: Deploy to Github Pages
       uses: JamesIves/github-pages-deploy-action@4.1.7
       with:
-        BASE_BRANCH: master # The branch the action should deploy from.
         BRANCH: gh-pages # The branch the action should deploy to.
         FOLDER: build/BlazorPages/dist # The folder the action should deploy.
         CLEAN: true
