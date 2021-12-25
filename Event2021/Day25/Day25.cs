@@ -84,18 +84,21 @@
                 map = nextMap;
                 nextMap = new char[len, len2];
 
-                var str = new StringBuilder();
-                str.Append("Step: ");
-                str.AppendLine(step.ToString());
-                for (int i = 0; i < len; ++i)
+                if (shouldVisualise)
                 {
-                    for (int j = 0; j < len2; ++j)
+                    var str = new StringBuilder();
+                    str.Append("Step: ");
+                    str.AppendLine(step.ToString());
+                    for (int i = 0; i < len; ++i)
                     {
-                        str.Append(map[i, j]);
+                        for (int j = 0; j < len2; ++j)
+                        {
+                            str.Append(map[i, j]);
+                        }
+                        str.AppendLine();
                     }
-                    str.AppendLine();
+                    yield return str.ToString();
                 }
-                yield return str.ToString();
 
                 for (int i = 0; i < len; i++)
                 {
@@ -138,23 +141,26 @@
                 }
                 map = nextMap;
 
-                str = new StringBuilder();
-                str.Append("Step: ");
-                str.AppendLine(step.ToString());
-                for (int i = 0; i < len; ++i)
+                if (shouldVisualise)
                 {
-                    for (int j = 0; j < len2; ++j)
+                    var str = new StringBuilder();
+                    str.Append("Step: ");
+                    str.AppendLine(step.ToString());
+                    for (int i = 0; i < len; ++i)
                     {
-                        str.Append(map[i, j]);
+                        for (int j = 0; j < len2; ++j)
+                        {
+                            str.Append(map[i, j]);
+                        }
+                        str.AppendLine();
                     }
-                    str.AppendLine();
+                    yield return str.ToString();
                 }
-                yield return str.ToString();
 
                 step++;
             }
 
-            // yield return step.ToString();
+            if (!shouldVisualise) yield return $"Step: {step}";
         }
 
         /// <inheritdoc/>
