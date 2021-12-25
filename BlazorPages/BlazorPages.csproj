@@ -24,6 +24,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Event2021\Event2021.csproj" />
     <ProjectReference Include="..\Solutions\Event2015\Event2015.csproj" />
     <ProjectReference Include="..\Solutions\Event2016\Event2016.csproj" />
   </ItemGroup>
@@ -36,6 +37,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\default-inputs\2015\day\9\input.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\default-inputs\2021\day\25\input.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot\default-inputs\2016\day\19\input.txt">

@@ -12,8 +12,6 @@
     /// </summary>
     public class Day24 : IAdventOfCodeDayRunner
     {
-        private Dictionary<(int, int, int, int, bool), (long, long)> Cache;
-
         /// <inheritdoc/>
         public bool HasVisualization() => true;
 

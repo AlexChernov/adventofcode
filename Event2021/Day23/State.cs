@@ -99,36 +99,6 @@ namespace AdventOfCode.Solutions.Event2021.Day23Model
             }
         }
 
-        private int CalcF()
-        {
-            return 0;
-
-            var f = 0;
-            for (int i = 0; i < Room.Length; i++)
-            {
-                char amphipod = Room[i];
-                if (amphipod == '.') continue;
-                if (Target[i] == amphipod)
-                {
-                    continue;
-                }
-                var targetHallIndex = GetHallIndex(GetRoomIndex(amphipod));
-                var hallIndex = GetHallIndex(i);
-                f += (Math.Abs(targetHallIndex - hallIndex) + 2 + (i % Roomsize)) * Cost(amphipod);
-            }
-
-            for (int i = 0; i < Hall.Length; ++i)
-            {
-                char amphipod = Hall[i];
-                if (amphipod == '.') continue;
-
-                var targetHallIndex = GetHallIndex(GetRoomIndex(amphipod));
-                f += (Math.Abs(targetHallIndex - i) + 1) * Cost(amphipod);
-            }
-
-            return f;
-        }
-
         private int Cost(char amphipod)
         {
             switch (amphipod)
